@@ -1,0 +1,32 @@
+<view class="container">
+  <navigation-bar title="邀请好友进房" bind:back="onBack"></navigation-bar>
+
+  <view class="content" style="padding-top: {{navBarHeight}}px;">
+    <loading-spinner wx:if="{{loading}}" loading="{{loading}}"></loading-spinner>
+
+    <view wx:if="{{!loading && room}}" class="invite-content">
+      <view class="room-name">{{room.roomName}}</view>
+
+      <view class="code-section">
+        <text class="code-label">邀请码</text>
+        <view class="code-row">
+          <text class="code-value">{{room.inviteCode}}</text>
+          <text class="code-copy" bindtap="onCopyCode">复制</text>
+        </view>
+        <text class="code-hint">好友输入邀请码或点击分享链接即可加入</text>
+      </view>
+
+      <view class="qrcode-placeholder">
+        <text class="qrcode-hint">将下方「微信邀请」发送给好友，好友点开即可加入房间</text>
+      </view>
+
+      <button class="btn-share" open-type="share">
+        微信邀请好友
+      </button>
+
+      <button class="btn-enter" bindtap="onEnterRoom">
+        进入房间
+      </button>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,212 @@
+@import '../../styles/theme.scss';
+@import '../../styles/mixins.scss';
+
+.container {
+  min-height: 100vh;
+  background: $bg-primary;
+}
+
+.content {
+  min-height: 100%;
+  padding: $spacing-lg;
+  box-sizing: border-box;
+}
+
+.record-form {
+  animation: fadeInUp 0.35s $transition-normal both;
+
+  .round-info {
+    @include card;
+    background: $gradient-primary;
+    color: $text-on-primary;
+    text-align: center;
+    margin-bottom: $spacing-lg;
+    padding: $spacing-xl;
+    border: none;
+
+    .round-label {
+      font-size: $font-xl;
+      font-weight: 700;
+      letter-spacing: 1rpx;
+    }
+  }
+
+  .score-inputs {
+    .score-input-item {
+      @include card;
+      margin-bottom: $spacing-md;
+      padding: $spacing-lg;
+      animation: fadeInUp 0.35s $transition-normal both;
+      @include stagger-children(8, 0.04s);
+
+      .player-info {
+        @include flex-between;
+        margin-bottom: $spacing-md;
+
+        .player-nickname {
+          font-size: $font-lg;
+          font-weight: 600;
+          color: $text-primary;
+        }
+
+        .quick-set-btn {
+          background: $primary-pale;
+          color: $primary-dark;
+          border: none;
+          font-weight: 600;
+          border-radius: $radius-full;
+          padding: 6rpx 20rpx;
+          font-size: $font-sm;
+        }
+      }
+
+      .input-row {
+        @include flex-between;
+
+        .score-input-wrapper,
+        .note-input-wrapper {
+          @include flex-column;
+
+          .input-label {
+            font-size: $font-xs;
+            color: $text-gray;
+            margin-bottom: $spacing-xs;
+          }
+        }
+
+        .score-input-wrapper {
+          flex: 1;
+          margin-right: $spacing-md;
+
+          .score-input {
+            font-size: $font-xl;
+            font-weight: 600;
+            color: $text-primary;
+            padding: $spacing-sm;
+            @include input-glow;
+            text-align: center;
+          }
+        }
+
+        .note-input-wrapper {
+          flex: 1;
+
+          .note-input {
+            font-size: $font-md;
+            color: $text-secondary;
+            padding: $spacing-sm;
+            @include input-glow;
+          }
+        }
+      }
+    }
+  }
+
+  .balance-display {
+    @include card;
+    @include flex-between;
+    align-items: center;
+    margin-bottom: $spacing-lg;
+    padding: $spacing-lg;
+
+    .balance-label {
+      font-size: $font-md;
+      color: $text-secondary;
+    }
+
+    .balance-value {
+      font-size: $font-2xl;
+      font-weight: 700;
+      flex: 1;
+      text-align: center;
+      transition: color $transition-normal;
+
+      &.balanced {
+        color: $primary;
+      }
+
+      &.unbalanced {
+        color: $red;
+      }
+    }
+
+    .balance-status {
+      font-size: $font-sm;
+      font-weight: 500;
+
+      &.balanced {
+        color: $primary;
+      }
+
+      &.unbalanced {
+        color: $red;
+      }
+    }
+  }
+
+  .actions {
+    @include flex-between;
+    margin-bottom: $spacing-lg;
+
+    .action-btn {
+      flex: 1;
+      padding: $spacing-lg;
+      border-radius: $radius-xl;
+      font-size: $font-md;
+      font-weight: 600;
+      margin: 0 $spacing-sm;
+      transition: all $transition-normal;
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &:active {
+        transform: scale(0.97);
+      }
+
+      &.reset {
+        @include card;
+        color: $text-secondary;
+        padding: $spacing-lg;
+      }
+
+      &.submit {
+        @include button-primary-glow;
+        border-radius: $radius-xl;
+        padding: $spacing-lg;
+      }
+    }
+  }
+
+  .tips {
+    @include card;
+    background: $primary-pale-light;
+    padding: $spacing-lg;
+    border: 1rpx solid $primary-pale;
+
+    .tips-title {
+      display: block;
+      font-size: $font-md;
+      color: $primary-dark;
+      font-weight: 700;
+      margin-bottom: $spacing-md;
+    }
+
+    .tips-item {
+      display: block;
+      font-size: $font-sm;
+      color: $text-secondary;
+      line-height: 1.8;
+      margin-bottom: $spacing-xs;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

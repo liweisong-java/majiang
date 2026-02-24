@@ -1,0 +1,92 @@
+@import '../../styles/theme.scss';
+@import '../../styles/mixins.scss';
+
+.room-card {
+  @include card;
+  padding: $spacing-lg $spacing-xl;
+  margin-bottom: $spacing-md;
+  transition: all $transition-normal;
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 0.35s $transition-normal both;
+
+  // 左侧渐变色条
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4rpx;
+    background: linear-gradient(180deg, $primary-teal, $primary-light);
+    border-radius: 0 $radius-sm $radius-sm 0;
+  }
+
+  &:active {
+    transform: scale(0.98);
+    box-shadow: $shadow-card-hover;
+  }
+
+  .room-header {
+    @include flex-between;
+    align-items: center;
+    margin-bottom: $spacing-sm;
+
+    .room-name {
+      font-size: $font-lg;
+      font-weight: 700;
+      color: $text-primary;
+      flex: 1;
+      @include text-ellipsis;
+      margin-right: $spacing-sm;
+    }
+
+    .room-status {
+      flex-shrink: 0;
+      padding: 8rpx 20rpx;
+      border-radius: $radius-full;
+      font-size: $font-xs;
+      font-weight: 600;
+
+      &.status-active {
+        background: $primary-pale;
+        color: $primary-dark;
+        border: 1rpx solid rgba(79, 70, 229, 0.12);
+      }
+
+      &.status-settled {
+        background: rgba(217, 119, 6, 0.1);
+        color: $gold;
+        border: 1rpx solid rgba(217, 119, 6, 0.2);
+      }
+
+      &.status-archived {
+        background: rgba(239, 68, 68, 0.08);
+        color: $red;
+        border: 1rpx solid rgba(239, 68, 68, 0.15);
+      }
+    }
+  }
+
+  .room-meta {
+    @include flex-start;
+    align-items: center;
+    font-size: $font-sm;
+    color: $text-secondary;
+    gap: $spacing-md;
+    line-height: 1.4;
+
+    .meta-text {
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+    }
+
+    .my-balance {
+      color: $text-primary;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+    }
+  }
+}

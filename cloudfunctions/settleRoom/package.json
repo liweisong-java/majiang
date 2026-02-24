@@ -1,0 +1,12 @@
+{
+  "name": "settleRoom",
+  "version": "1.0.0",
+  "description": "结算房间云函数 - 更新用户统计和牌友关系",
+  "main": "index.js",
+  "scripts": {},
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

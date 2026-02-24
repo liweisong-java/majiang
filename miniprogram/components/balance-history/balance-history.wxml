@@ -1,0 +1,56 @@
+<view class="balance-history">
+  <view class="history-header">
+    <text class="history-title">积分变动记录</text>
+    <text class="history-count">共 {{processedHistory.length}} 条</text>
+  </view>
+
+  <view class="history-list" wx:if="{{processedHistory.length > 0}}">
+    <view
+      class="history-item {{item.isRelatedToMe ? 'related-to-me' : ''}}"
+      wx:for="{{processedHistory}}"
+      wx:key="index"
+      data-index="{{index}}"
+      bindtap="toggleExpand"
+    >
+      <view class="item-main">
+        <view class="item-left">
+          <text class="item-time">{{item.formattedTime}}</text>
+          <text class="item-desc">{{item.description}}</text>
+        </view>
+        <view class="item-right">
+          <text class="item-amount {{item.fromOpenid === myOpenid ? 'negative' : item.toOpenid === myOpenid ? 'positive' : ''}}">
+            {{item.fromOpenid === myOpenid ? '-' : item.toOpenid === myOpenid ? '+' : ''}}{{item.amount}}
+          </text>
+          <text class="expand-icon">{{expandedIndex === index ? '▲' : '▼'}}</text>
+        </view>
+      </view>
+
+      <!-- 展开详情 -->
+      <view class="item-detail" wx:if="{{expandedIndex === index}}">
+        <view class="detail-row">
+          <text class="detail-label">转出者：</text>
+          <text class="detail-value">{{item.fromNickname}}</text>
+        </view>
+        <view class="detail-row">
+          <text class="detail-label">接收者：</text>
+          <text class="detail-value">{{item.toNickname}}</text>
+        </view>
+        <view class="detail-row">
+          <text class="detail-label">金额：</text>
+          <text class="detail-value">{{item.amount}}</text>
+        </view>
+        <view class="detail-row" wx:if="{{item.isRelatedToMe}}">
+          <text class="detail-label">我的积分：</text>
+          <text class="detail-value {{item.balances[myOpenid] >= 0 ? 'positive' : 'negative'}}">
+            {{item.myBalanceChange}}
+          </text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty-state" wx:else>
+    <text class="empty-icon">📝</text>
+    <text class="empty-text">还没有积分变动记录</text>
+  </view>
+</view>

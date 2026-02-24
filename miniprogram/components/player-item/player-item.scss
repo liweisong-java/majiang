@@ -1,0 +1,80 @@
+@import '../../styles/theme.scss';
+@import '../../styles/mixins.scss';
+
+.player-item {
+  @include flex-between;
+  padding: $spacing-md $spacing-lg;
+  background: $bg-card;
+  border-radius: $radius-lg;
+  margin-bottom: $spacing-sm;
+  border: 1rpx solid $border-light;
+  transition: all $transition-normal;
+  animation: fadeInUp 0.3s $transition-normal both;
+
+  .player-rank {
+    width: 56rpx;
+    height: 56rpx;
+    @include flex-center;
+    border-radius: $radius-md;
+
+    .rank-text {
+      font-size: $font-lg;
+      font-weight: 700;
+    }
+
+    &.rank-1 {
+      background: linear-gradient(135deg, #FDE68A, #F59E0B);
+      .rank-text { color: $text-on-primary; }
+    }
+
+    &.rank-2 {
+      background: linear-gradient(135deg, #E5E7EB, #9CA3AF);
+      .rank-text { color: $text-on-primary; }
+    }
+
+    &.rank-3 {
+      background: linear-gradient(135deg, #FED7AA, #EA580C);
+      .rank-text { color: $text-on-primary; }
+    }
+  }
+
+  .player-avatar {
+    @include avatar(76rpx);
+    margin: 0 $spacing-md;
+    border: 2rpx solid $border-light;
+    box-shadow: $shadow-sm;
+  }
+
+  .player-info {
+    @include flex-column;
+    flex: 1;
+
+    .player-name {
+      font-size: $font-md;
+      font-weight: 600;
+      color: $text-primary;
+      margin-bottom: $spacing-xs;
+    }
+
+    .player-role {
+      font-size: $font-xs;
+      color: $gold;
+      font-weight: 600;
+    }
+  }
+
+  .player-balance {
+    .balance-value {
+      font-size: $font-lg;
+      font-weight: 700;
+
+      &.positive {
+        @include balance-positive;
+      }
+
+      &.negative {
+        color: $red;
+      }
+    }
+  }
+}

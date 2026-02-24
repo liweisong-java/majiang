@@ -1,0 +1,60 @@
+<view class="container">
+  <!-- 自定义导航栏 -->
+  <navigation-bar title="牌友" back="{{false}}"></navigation-bar>
+
+  <scroll-view
+    class="content"
+    scroll-y
+    style="padding-top: {{navBarHeight}}px;"
+    enable-back-to-top
+    refresher-enabled
+    refresher-triggered="{{loading}}"
+    bindrefresherrefresh="onPullDownRefresh"
+  >
+    <view class="friends-list">
+      <!-- 骨架屏 -->
+      <block wx:if="{{loading}}">
+        <skeleton type="friend-item"></skeleton>
+        <skeleton type="friend-item"></skeleton>
+        <skeleton type="friend-item"></skeleton>
+        <skeleton type="friend-item"></skeleton>
+      </block>
+
+      <!-- 牌友列表 -->
+      <view wx:elif="{{friends.length > 0}}" class="list-content">
+        <view
+          class="friend-item"
+          wx:for="{{friends}}"
+          wx:key="_id"
+          data-friend="{{item}}"
+          bindtap="onFriendTap"
+        >
+          <image class="friend-avatar" src="{{item.friendAvatarUrl}}" mode="aspectFill"></image>
+
+          <view class="friend-info">
+            <text class="friend-name">{{item.friendNickname}}</text>
+            <view class="friend-stats">
+              <text class="stat-item">对局 {{item.frequency}} 次</text>
+              <text class="stat-dot">·</text>
+              <text class="stat-item">胜率 {{item.winRateText}}</text>
+            </view>
+          </view>
+
+          <view class="friend-balance">
+            <text class="balance-value {{item.stats.totalScoreChange >= 0 ? 'positive' : 'negative'}}">
+              {{item.stats.totalScoreChange >= 0 ? '+' : ''}}{{item.stats.totalScoreChange}}
+            </text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 空状态 -->
+      <empty-state
+        wx:else
+        type="friends"
+        message="还没有牌友记录"
+        buttonText="">
+      </empty-state>
+    </view>
+  </scroll-view>
+</view>

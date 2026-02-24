@@ -1,0 +1,95 @@
+@import '../../styles/theme.scss';
+@import '../../styles/mixins.scss';
+
+.balance-chart {
+  @include card;
+  padding: $spacing-md;
+  margin-bottom: $spacing-lg;
+
+  .chart-header {
+    @include flex-between;
+    align-items: center;
+    margin-bottom: $spacing-md;
+
+    .chart-title {
+      font-size: $font-lg;
+      font-weight: 700;
+      color: $text-primary;
+    }
+
+    .reset-btn {
+      padding: $spacing-xs $spacing-md;
+      font-size: $font-xs;
+      color: $primary;
+      background: $primary-pale;
+      border: 1rpx solid $primary-pale;
+      border-radius: $radius-md;
+      line-height: 1;
+
+      &::after {
+        border: none;
+      }
+
+      &:active {
+        background: rgba(79, 70, 229, 0.15);
+      }
+    }
+  }
+
+  .chart-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: $radius-md;
+    background: $bg-primary;
+
+    .chart-canvas {
+      width: 100%;
+      display: block;
+      touch-action: none;
+    }
+
+    .chart-hint {
+      padding: $spacing-sm;
+      text-align: center;
+      background: rgba(79, 70, 229, 0.05);
+      border-top: 1rpx solid $border-light;
+
+      .hint-text {
+        font-size: $font-xs;
+        color: $text-gray;
+      }
+    }
+  }
+
+  .tooltip {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: $spacing-sm $spacing-md;
+    border-radius: $radius-md;
+    font-size: $font-xs;
+    pointer-events: none;
+    z-index: 100;
+    white-space: nowrap;
+
+    .tooltip-content {
+      .tooltip-text {
+        color: white;
+      }
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -8rpx;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 8rpx solid transparent;
+      border-right: 8rpx solid transparent;
+      border-top: 8rpx solid rgba(0, 0, 0, 0.8);
+    }
+  }
+}

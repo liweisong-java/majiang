@@ -1,0 +1,115 @@
+<view class="container">
+  <!-- 自定义导航栏 -->
+  <navigation-bar title="牌局" back="{{false}}"></navigation-bar>
+
+  <!-- Tab 切换（紧贴导航栏） -->
+  <view class="tabs" style="top: {{navBarHeight}}px;">
+    <view
+      class="tab-item {{currentTab === index ? 'active' : ''}}"
+      wx:for="{{tabs}}"
+      wx:key="value"
+      data-index="{{index}}"
+      bindtap="onTabClick"
+    >
+      <text class="tab-label">{{item.label}}</text>
+      <view class="tab-indicator" wx:if="{{currentTab === index}}"></view>
+    </view>
+  </view>
+
+  <!-- 内容区域 -->
+  <view class="content" style="padding-top: {{navBarHeight + 100}}px;">
+    <swiper
+      class="swiper"
+      style="height: calc(100vh - {{navBarHeight + 100}}px);"
+      current="{{currentTab}}"
+      bindchange="onTabChange"
+    >
+      <!-- 进行中的房间 -->
+      <swiper-item class="swiper-item">
+        <scroll-view
+          class="scroll-view"
+          scroll-y
+          enable-back-to-top
+          refresher-enabled
+          refresher-triggered="{{loading}}"
+          bindrefresherrefresh="onPullDownRefresh"
+        >
+          <view class="room-list">
+            <!-- 骨架屏 -->
+            <block wx:if="{{loading}}">
+              <skeleton type="room-card"></skeleton>
+              <skeleton type="room-card"></skeleton>
+              <skeleton type="room-card"></skeleton>
+            </block>
+
+            <view wx:elif="{{activeRooms.length > 0}}" class="list-content">
+              <room-card
+                wx:for="{{activeRooms}}"
+                wx:key="_id"
+                room="{{item}}"
+                myBalance="{{item.myBalance}}"
+                bind:tap="onRoomTap">
+              </room-card>
+            </view>
+
+            <empty-state
+              wx:else
+              type="game"
+              message="还没有进行中的牌局"
+              buttonText="创建房间"
+              bind:buttontap="onCreateRoom">
+            </empty-state>
+          </view>
+        </scroll-view>
+      </swiper-item>
+
+      <!-- 已结束的房间 -->
+      <swiper-item class="swiper-item">
+        <scroll-view
+          class="scroll-view"
+          scroll-y
+          enable-back-to-top
+          refresher-enabled
+          refresher-triggered="{{loading}}"
+          bindrefresherrefresh="onPullDownRefresh"
+        >
+          <view class="room-list">
+            <!-- 骨架屏 -->
+            <block wx:if="{{loading}}">
+              <skeleton type="room-card"></skeleton>
+              <skeleton type="room-card"></skeleton>
+              <skeleton type="room-card"></skeleton>
+            </block>
+
+            <view wx:elif="{{settledRooms.length > 0}}" class="list-content">
+              <room-card
+                wx:for="{{settledRooms}}"
+                wx:key="_id"
+                room="{{item}}"
+                myBalance="{{item.myBalance}}"
+                bind:tap="onRoomTap">
+              </room-card>
+            </view>
+
+            <empty-state
+              wx:else
+              type="game"
+              message="还没有已结束的牌局"
+              buttonText="">
+            </empty-state>
+          </view>
+        </scroll-view>
+      </swiper-item>
+    </swiper>
+
+    <!-- 浮动操作按钮 -->
+    <view class="fab-group">
+      <view class="fab-item" bindtap="onJoinRoom">
+        <text class="fab-icon">🔗</text>
+      </view>
+      <view class="fab-item primary" bindtap="onCreateRoom">
+        <text class="fab-icon">➕</text>
+      </view>
+    </view>
+  </view>
+</view>

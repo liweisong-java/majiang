@@ -1,0 +1,87 @@
+@import '../../styles/theme.scss';
+@import '../../styles/mixins.scss';
+
+.container {
+  min-height: 100vh;
+  background: $bg-primary;
+}
+
+.content {
+  min-height: 100%;
+  padding: $spacing-xl $spacing-lg;
+  padding-bottom: $spacing-2xl;
+  padding-bottom: calc(#{$spacing-2xl} + constant(safe-area-inset-bottom));
+  padding-bottom: calc(#{$spacing-2xl} + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+}
+
+.form {
+  animation: fadeInUp 0.35s $transition-normal both;
+
+  .form-item {
+    @include card;
+    @include flex-between;
+    margin-bottom: $spacing-lg;
+    padding: $spacing-lg;
+
+    .form-label {
+      font-size: $font-md;
+      color: $text-primary;
+      font-weight: 600;
+      width: 200rpx;
+    }
+
+    .form-input {
+      flex: 1;
+      font-size: $font-md;
+      color: $text-primary;
+      text-align: right;
+      transition: all $transition-normal;
+
+      &:focus {
+        color: $primary;
+      }
+    }
+  }
+
+  .form-tips {
+    @include card;
+    background: $primary-pale-light;
+    padding: $spacing-lg;
+    margin-bottom: $spacing-xl;
+    border: 1rpx solid $primary-pale;
+
+    .tips-title {
+      display: block;
+      font-size: $font-md;
+      color: $primary-dark;
+      font-weight: 700;
+      margin-bottom: $spacing-md;
+    }
+
+    .tips-item {
+      display: block;
+      font-size: $font-sm;
+      color: $text-secondary;
+      line-height: 1.8;
+      margin-bottom: $spacing-xs;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .create-button {
+    @include button-primary-glow;
+    width: 100%;
+    padding: $spacing-lg;
+    border-radius: $radius-xl;
+    font-size: $font-lg;
+    font-weight: 700;
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+}

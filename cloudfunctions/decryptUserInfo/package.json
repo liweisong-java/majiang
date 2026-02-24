@@ -1,0 +1,9 @@
+{
+  "name": "decryptUserInfo",
+  "version": "1.0.0",
+  "description": "解密用户信息",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

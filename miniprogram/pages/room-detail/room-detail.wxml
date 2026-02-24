@@ -1,0 +1,162 @@
+<view class="container">
+  <navigation-bar title="{{room ? room.roomName : '房间'}}" bind:back="onBack"></navigation-bar>
+
+  <scroll-view class="content" scroll-y>
+    <loading-spinner wx:if="{{loading}}" loading="{{loading}}"></loading-spinner>
+
+    <view wx:if="{{!loading && room}}" class="room-content">
+      <!-- 顶部操作 -->
+      <view class="room-header">
+        <view class="header-actions-row">
+          <button class="action-btn invite" bindtap="onShowInvite">邀请好友</button>
+          <button
+            wx:if="{{room.status === 'active' && !myHasLeft}}"
+            class="action-btn leave"
+            bindtap="onLeaveRoom"
+          >退出房间</button>
+        </view>
+        <button
+          wx:if="{{isCreator && room.status === 'active'}}"
+          class="action-btn end"
+          bindtap="onEndGame"
+        >
+          <text class="end-icon">⏹</text>
+          <text class="end-label">结束本局</text>
+        </button>
+      </view>
+
+      <!-- 成员与积分（放在最上方） -->
+      <view class="members-section">
+        <text class="section-hint">点击头像给 TA 转积分</text>
+        <view class="members-grid">
+          <view
+            class="member-card {{item.isMe ? 'is-me' : ''}} {{item.memberStatus === 'left' ? 'is-left' : ''}}"
+            wx:for="{{membersWithMe}}"
+            wx:key="openid"
+            data-index="{{index}}"
+            bindtap="onMemberTap"
+          >
+            <view class="member-avatar-wrap">
+              <image
+                class="member-avatar"
+                src="{{item.avatarUrl || '/assets/default-avatar.png'}}"
+                mode="aspectFill"
+              />
+              <text class="member-badge" wx:if="{{item.isMe}}">我</text>
+              <text class="member-badge left-badge" wx:if="{{item.memberStatus === 'left'}}">已退出</text>
+            </view>
+            <text class="member-name">{{item.nickname}}</text>
+            <text class="member-balance {{item.currentBalance >= 0 ? 'positive' : 'negative'}}">
+              {{item.currentBalance >= 0 ? '+' : ''}}{{item.currentBalance}}
+            </text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 积分变化趋势图（弹窗打开时隐藏，canvas原生组件会覆盖弹窗） -->
+      <balance-chart
+        wx:if="{{room.balanceHistory && room.balanceHistory.length > 0 && !showTransferModal && !showInviteModal && !showStatsModal}}"
+        members="{{membersWithMe}}"
+        balanceHistory="{{room.balanceHistory}}"
+        height="{{300}}"
+      ></balance-chart>
+
+      <!-- 积分变动记录 -->
+      <balance-history
+        wx:if="{{room.balanceHistory && room.balanceHistory.length > 0}}"
+        balanceHistory="{{room.balanceHistory}}"
+        myOpenid="{{myOpenid}}"
+      ></balance-history>
+
+      <!-- 已结束 -->
+      <view class="settled-banner" wx:if="{{room.status === 'settled'}}">
+        <text class="settled-text">本局已结束</text>
+        <text class="settled-btn" bindtap="onShowStats">查看统计</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 邀请弹窗 -->
+  <view class="invite-modal" wx:if="{{showInviteModal}}" bindtap="onHideInvite">
+    <view class="modal-content" catchtap="">
+      <text class="modal-title">邀请好友进房</text>
+      <view class="invite-code-display">
+        <text class="invite-label">邀请码</text>
+        <view class="invite-code-chars">
+          <text class="code-char" wx:for="{{room.inviteCode}}" wx:key="*this">{{item}}</text>
+        </view>
+      </view>
+      <button class="modal-btn copy" bindtap="onCopyInviteCode">复制邀请码</button>
+      <button class="modal-btn share" open-type="share">微信邀请</button>
+      <view class="modal-close" bindtap="onHideInvite"><text>✕</text></view>
+    </view>
+  </view>
+
+  <!-- 转积分弹窗 -->
+  <view class="transfer-modal" wx:if="{{showTransferModal}}" catchtap="onHideTransfer">
+    <view class="modal-content transfer-content" catchtap="preventTap">
+      <view class="modal-close" bindtap="onHideTransfer"><text>✕</text></view>
+      <text class="modal-title">转给 {{transferTarget.nickname}}</text>
+
+      <view class="transfer-info-row">
+        <view class="transfer-info-item">
+          <image
+            class="transfer-avatar"
+            src="{{transferTarget.avatarUrl || '/assets/default-avatar.png'}}"
+            mode="aspectFill"
+          />
+          <text class="transfer-info-label">{{transferTarget.nickname}}</text>
+          <text class="transfer-info-value">积分：{{transferTarget.currentBalance}}</text>
+        </view>
+        <view class="transfer-info-item my-info">
+          <text class="transfer-info-label">我的积分</text>
+          <text class="transfer-info-value {{myBalance >= 0 ? 'positive' : 'negative'}}">{{myBalance}}</text>
+        </view>
+      </view>
+
+      <view class="transfer-input-wrap">
+        <input
+          class="transfer-input"
+          type="number"
+          placeholder="输入积分数量"
+          value="{{transferAmount}}"
+          bindinput="onTransferAmountInput"
+          maxlength="4"
+        />
+      </view>
+
+      <text class="transfer-tip">转出后你的积分减少，对方增加相同数量</text>
+
+      <button class="modal-btn submit" bindtap="onConfirmTransfer" loading="{{transferSubmitting}}" disabled="{{!transferAmount || transferAmount === '0'}}">
+        确认转出
+      </button>
+    </view>
+  </view>
+
+  <!-- 结束对局统计弹窗 -->
+  <view class="stats-modal" wx:if="{{showStatsModal}}" bindtap="onHideStats">
+    <view class="modal-content stats-content" catchtap="">
+      <text class="modal-title">本局统计 · {{room.roomName}}</text>
+      <view class="stats-list">
+        <view
+          class="stats-row"
+          wx:for="{{sortedMembers}}"
+          wx:key="openid"
+        >
+          <text class="stats-rank rank-{{index + 1}}">{{index + 1}}</text>
+          <image
+            class="stats-avatar"
+            src="{{item.avatarUrl || '/assets/default-avatar.png'}}"
+            mode="aspectFill"
+          />
+          <text class="stats-name">{{item.nickname}}</text>
+          <text class="stats-score {{item.currentBalance >= 0 ? 'positive' : 'negative'}}">
+            {{item.currentBalance >= 0 ? '+' : ''}}{{item.currentBalance}}
+          </text>
+        </view>
+      </view>
+      <button class="modal-btn share" open-type="share">分享给好友</button>
+      <view class="modal-close" bindtap="onHideStats"><text>✕</text></view>
+    </view>
+  </view>
+</view>

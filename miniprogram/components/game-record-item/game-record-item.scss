@@ -1,0 +1,93 @@
+@import '../../styles/theme.scss';
+@import '../../styles/mixins.scss';
+
+.game-record-item {
+  @include card;
+  margin-bottom: $spacing-md;
+  padding: $spacing-lg;
+  transition: all $transition-normal;
+  animation: fadeInUp 0.35s $transition-normal both;
+
+  &:active {
+    transform: scale(0.98);
+    box-shadow: $shadow-card-hover;
+  }
+
+  .record-header {
+    @include flex-between;
+    margin-bottom: $spacing-md;
+    padding-bottom: $spacing-md;
+    border-bottom: 1rpx solid $border-light;
+
+    .record-round {
+      font-size: $font-sm;
+      font-weight: 700;
+      color: $text-on-primary;
+      background: $gradient-primary;
+      padding: 4rpx 16rpx;
+      border-radius: $radius-full;
+    }
+
+    .record-time {
+      font-size: $font-sm;
+      color: $text-gray;
+      flex: 1;
+      text-align: center;
+    }
+
+    .record-balanced {
+      font-size: $font-md;
+
+      &.balanced {
+        color: $primary;
+      }
+
+      &.unbalanced {
+        color: $red;
+      }
+    }
+  }
+
+  .record-scores {
+    .score-item {
+      @include flex-between;
+      margin-bottom: $spacing-sm;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .player-name {
+        font-size: $font-sm;
+        color: $text-secondary;
+        width: 200rpx;
+      }
+
+      .score-change {
+        @include flex-start;
+        flex: 1;
+
+        .score-value {
+          font-size: $font-md;
+          font-weight: 700;
+          min-width: 120rpx;
+          text-align: right;
+
+          &.positive {
+            @include balance-positive;
+          }
+
+          &.negative {
+            color: $red;
+          }
+        }
+
+        .score-note {
+          font-size: $font-xs;
+          color: $text-gray;
+          margin-left: $spacing-sm;
+        }
+      }
+    }
+  }
+}

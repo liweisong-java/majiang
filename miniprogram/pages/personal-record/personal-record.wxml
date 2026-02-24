@@ -1,0 +1,154 @@
+<view class="container">
+  <navigation-bar title="个人记账" bind:back="onBack"></navigation-bar>
+
+  <scroll-view class="content" scroll-y style="padding-top: {{navBarHeight}}px;">
+    <!-- 标签切换 -->
+    <view class="tabs">
+      <view class="tab-item {{activeTab === 'add' ? 'active' : ''}}" bindtap="onSwitchTab" data-tab="add">
+        <text class="tab-label">记一笔</text>
+      </view>
+      <view class="tab-item {{activeTab === 'list' ? 'active' : ''}}" bindtap="onSwitchTab" data-tab="list">
+        <text class="tab-label">历史记录</text>
+      </view>
+    </view>
+
+    <!-- 记一笔 -->
+    <view class="tab-content" wx:if="{{activeTab === 'add'}}">
+      <view class="form-section">
+        <!-- 游戏类型 -->
+        <view class="form-card">
+          <text class="form-card-title">游戏类型</text>
+          <view class="game-type-grid">
+            <view
+              class="type-chip {{gameType === item ? 'active' : ''}}"
+              wx:for="{{gameTypes}}"
+              wx:key="*this"
+              bindtap="onSelectGameType"
+              data-type="{{item}}"
+            >
+              <text>{{item}}</text>
+            </view>
+            <view
+              class="type-chip {{isCustomType ? 'active' : ''}}"
+              bindtap="onCustomType"
+            >
+              <text>自定义</text>
+            </view>
+          </view>
+          <input
+            wx:if="{{isCustomType}}"
+            class="custom-type-input"
+            placeholder="输入游戏类型"
+            value="{{customGameType}}"
+            bindinput="onCustomTypeInput"
+          />
+        </view>
+
+        <!-- 结算方式 -->
+        <view class="form-card">
+          <text class="form-card-title">结算方式</text>
+          <view class="mode-switch">
+            <view class="mode-item {{settlementMode === 'score' ? 'active' : ''}}" bindtap="onSelectMode" data-mode="score">
+              <text>积分</text>
+            </view>
+            <view class="mode-item {{settlementMode === 'money' ? 'active' : ''}}" bindtap="onSelectMode" data-mode="money">
+              <text>金额</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- 玩家列表 -->
+        <view class="form-card">
+          <view class="form-card-header">
+            <text class="form-card-title">玩家</text>
+            <view class="add-player-btn" bindtap="onAddPlayer">
+              <text>+ 添加</text>
+            </view>
+          </view>
+
+          <view class="player-list">
+            <view class="player-row" wx:for="{{players}}" wx:key="index">
+              <view class="player-name-wrap">
+                <input
+                  class="player-name-input"
+                  placeholder="玩家{{index + 1}}"
+                  value="{{item.name}}"
+                  data-index="{{index}}"
+                  bindinput="onPlayerNameInput"
+                />
+              </view>
+              <view class="player-score-wrap">
+                <input
+                  class="player-score-input"
+                  type="digit"
+                  placeholder="0"
+                  value="{{item.finalScore || ''}}"
+                  data-index="{{index}}"
+                  bindinput="onPlayerScoreInput"
+                />
+              </view>
+              <view class="remove-player-btn" wx:if="{{players.length > 2}}" bindtap="onRemovePlayer" data-index="{{index}}">
+                <text>✕</text>
+              </view>
+            </view>
+          </view>
+
+          <!-- 合计 -->
+          <view class="total-row">
+            <text class="total-label">合计</text>
+            <text class="total-value {{totalScore === 0 ? 'balanced' : 'unbalanced'}}">
+              {{totalScore >= 0 ? '+' : ''}}{{totalScore}}
+            </text>
+          </view>
+        </view>
+
+        <!-- 备注 -->
+        <view class="form-card">
+          <text class="form-card-title">备注（可选）</text>
+          <input
+            class="note-input"
+            placeholder="今天手气不错..."
+            value="{{note}}"
+            bindinput="onNoteInput"
+          />
+        </view>
+
+        <!-- 提交 -->
+        <button class="submit-btn" bindtap="onSubmit" loading="{{submitting}}">
+          保存记录
+        </button>
+      </view>
+    </view>
+
+    <!-- 历史记录 -->
+    <view class="tab-content" wx:if="{{activeTab === 'list'}}">
+      <loading-spinner wx:if="{{loading}}" loading="{{loading}}"></loading-spinner>
+
+      <view wx:if="{{!loading && records.length > 0}}" class="records-list">
+        <view class="record-item" wx:for="{{records}}" wx:key="_id">
+          <view class="record-item-header">
+            <view class="record-type-tag">{{item.gameType}}</view>
+            <text class="record-date">{{item.playedAtText}}</text>
+            <text class="record-mode">{{item.settlementMode === 'money' ? '💰' : '🎯'}}</text>
+          </view>
+          <view class="record-players">
+            <view class="record-player" wx:for="{{item.players}}" wx:for-item="player" wx:key="name">
+              <text class="rp-name">{{player.name}}</text>
+              <text class="rp-score {{player.finalScore >= 0 ? 'positive' : 'negative'}}">
+                {{player.finalScore >= 0 ? '+' : ''}}{{player.finalScore}}
+              </text>
+            </view>
+          </view>
+          <text class="record-note" wx:if="{{item.note}}">{{item.note}}</text>
+        </view>
+      </view>
+
+      <empty-state
+        wx:if="{{!loading && records.length === 0}}"
+        message="还没有记账记录"
+        icon="📝"
+        buttonText="">
+      </empty-state>
+    </view>
+  </scroll-view>
+</view>

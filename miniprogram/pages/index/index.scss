@@ -1,0 +1,317 @@
+@import '../../styles/theme.scss';
+@import '../../styles/mixins.scss';
+
+.container {
+  min-height: 100vh;
+  background: $bg-primary;
+}
+
+.nav-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.theme-toggle {
+  padding: 0 $spacing-md;
+  @include flex-center;
+  height: 100%;
+
+  .theme-icon {
+    font-size: 40rpx;
+    line-height: 1;
+    transition: transform $transition-normal;
+  }
+
+  &:active .theme-icon {
+    transform: scale(0.85);
+  }
+}
+
+.content {
+  min-height: 100%;
+  padding-bottom: calc(120rpx + env(safe-area-inset-bottom));
+}
+
+// ── 骨架屏 ────────────────────────────────────────────
+.skeleton-hero {
+  height: 280rpx;
+  background: linear-gradient(90deg, $border-light 25%, $bg-card 50%, $border-light 75%);
+  background-size: 400% 100%;
+  animation: shimmer 1.4s ease infinite;
+}
+
+.skeleton-actions {
+  margin: $spacing-lg;
+  height: 200rpx;
+  border-radius: $radius-xl;
+  background: linear-gradient(90deg, $border-light 25%, $bg-card 50%, $border-light 75%);
+  background-size: 400% 100%;
+  animation: shimmer 1.4s ease 0.1s infinite;
+}
+
+.skeleton-room {
+  margin: 0 $spacing-lg;
+  height: 140rpx;
+  border-radius: $radius-xl;
+  background: linear-gradient(90deg, $border-light 25%, $bg-card 50%, $border-light 75%);
+  background-size: 400% 100%;
+  animation: shimmer 1.4s ease 0.2s infinite;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+// ── Hero Banner ───────────────────────────────────────
+.hero {
+  background: linear-gradient(160deg, $primary-teal 0%, $primary 50%, $primary-dark 100%);
+  padding: $spacing-lg $spacing-lg $spacing-2xl;
+  position: relative;
+  overflow: hidden;
+
+  .hero-bg-blob {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+
+    &.b1 {
+      width: 400rpx;
+      height: 400rpx;
+      background: rgba(255, 255, 255, 0.05);
+      top: -160rpx;
+      right: -100rpx;
+    }
+
+    &.b2 {
+      width: 240rpx;
+      height: 240rpx;
+      background: rgba(255, 255, 255, 0.04);
+      bottom: -80rpx;
+      left: -60rpx;
+    }
+  }
+}
+
+// ── 操作区 ────────────────────────────────────────────
+.actions {
+  margin: -$spacing-xl $spacing-lg 0;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  animation: fadeInUp 0.4s $transition-normal 0.05s both;
+
+  // 主按钮：开一局
+  .action-primary {
+    @include card;
+    padding: $spacing-xl;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: $spacing-lg;
+    background: $bg-card;
+    box-shadow: $shadow-elevated;
+    border: none;
+    transition: transform $transition-fast, box-shadow $transition-fast;
+
+    &:active {
+      transform: scale(0.98);
+      box-shadow: $shadow-md;
+    }
+
+    .action-primary-icon {
+      width: 96rpx;
+      height: 96rpx;
+      border-radius: $radius-lg;
+      background: $gradient-primary;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48rpx;
+      flex-shrink: 0;
+      box-shadow: 0 8rpx 24rpx rgba(79, 70, 229, 0.3);
+    }
+
+    .action-primary-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8rpx;
+
+      .action-primary-title {
+        font-size: $font-xl;
+        font-weight: 800;
+        color: $text-primary;
+        line-height: 1;
+      }
+
+      .action-primary-sub {
+        font-size: $font-xs;
+        color: $text-gray;
+      }
+    }
+
+    .action-arrow {
+      font-size: 48rpx;
+      color: $text-gray;
+      line-height: 1;
+      font-weight: 300;
+    }
+  }
+
+  // 次级按钮行
+  .action-row {
+    display: flex;
+    flex-direction: row;
+    gap: $spacing-md;
+
+    .action-secondary {
+      flex: 1;
+      @include card;
+      padding: $spacing-lg $spacing-md;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: $spacing-sm;
+      box-shadow: $shadow-card;
+      transition: transform $transition-fast;
+
+      &:active {
+        transform: scale(0.96);
+      }
+
+      .action-secondary-icon {
+        font-size: 44rpx;
+        line-height: 1;
+      }
+
+      .action-secondary-label {
+        font-size: $font-sm;
+        font-weight: 600;
+        color: $text-primary;
+        text-align: center;
+      }
+    }
+  }
+}
+
+// ── 进行中牌局 ────────────────────────────────────────
+.section {
+  margin: $spacing-xl $spacing-lg 0;
+  animation: fadeInUp 0.4s $transition-normal 0.15s both;
+
+  .section-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: $spacing-lg;
+
+    .section-header-left {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: $spacing-sm;
+
+      .section-dot {
+        width: 16rpx;
+        height: 16rpx;
+        border-radius: 50%;
+        background: $primary;
+        box-shadow: 0 0 0 4rpx rgba(79, 70, 229, 0.2);
+        // 呼吸动画
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      .section-title {
+        font-size: $font-lg;
+        font-weight: 700;
+        color: $text-primary;
+      }
+
+      .section-badge {
+        min-width: 36rpx;
+        height: 36rpx;
+        padding: 0 10rpx;
+        border-radius: $radius-full;
+        background: $gradient-primary;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22rpx;
+        font-weight: 700;
+        color: $text-on-primary;
+      }
+    }
+
+    .section-more {
+      font-size: $font-sm;
+      color: $text-gray;
+      font-weight: 500;
+    }
+  }
+
+  .room-list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+  }
+}
+
+// ── 空状态 ────────────────────────────────────────────
+.empty-block {
+  margin-top: $spacing-2xl;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-md;
+  animation: fadeIn 0.4s $transition-normal 0.15s both;
+
+  .empty-icon {
+    font-size: 96rpx;
+    line-height: 1;
+  }
+
+  .empty-text {
+    font-size: $font-md;
+    color: $text-gray;
+    text-align: center;
+  }
+
+  .empty-btn {
+    margin-top: $spacing-sm;
+    padding: $spacing-md $spacing-2xl;
+    background: $gradient-primary;
+    color: $text-on-primary;
+    font-size: $font-md;
+    font-weight: 700;
+    border-radius: $radius-full;
+    box-shadow: 0 8rpx 24rpx rgba(79, 70, 229, 0.3);
+    transition: transform $transition-fast;
+
+    &:active {
+      transform: scale(0.96);
+    }
+  }
+}
+
+// ── 动画 ──────────────────────────────────────────────
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24rpx); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 4rpx rgba(79, 70, 229, 0.2); }
+  50%       { box-shadow: 0 0 0 8rpx rgba(79, 70, 229, 0.08); }
+}

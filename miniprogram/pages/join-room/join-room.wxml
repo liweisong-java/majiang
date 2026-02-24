@@ -1,0 +1,52 @@
+<view class="container">
+  <!-- 自定义导航栏 -->
+  <navigation-bar title="加入房间" bind:back="onBack"></navigation-bar>
+
+  <scroll-view class="content" scroll-y style="padding-top: {{navBarHeight}}px;">
+    <view class="join-form">
+      <!-- 邀请码输入 -->
+      <view class="code-input-wrapper">
+        <text class="input-label">输入邀请码</text>
+        <input
+          class="code-input"
+          placeholder="请输入6位邀请码"
+          value="{{inviteCode}}"
+          bindinput="onInviteCodeInput"
+          maxlength="6"
+          auto-focus
+        />
+      </view>
+
+      <!-- 加入按钮 -->
+      <button
+        class="join-button"
+        bindtap="onJoinRoom"
+        loading="{{joining}}"
+        disabled="{{joining}}"
+      >
+        {{joining ? '加入中...' : '加入房间'}}
+      </button>
+
+      <!-- 分割线 -->
+      <view class="divider">
+        <view class="divider-line"></view>
+        <text class="divider-text">或</text>
+        <view class="divider-line"></view>
+      </view>
+
+      <!-- 扫码加入 -->
+      <button class="scan-button" bindtap="onScanCode">
+        <text class="scan-icon">📷</text>
+        <text class="scan-text">扫码加入</text>
+      </button>
+
+      <!-- 说明 -->
+      <view class="tips">
+        <text class="tips-title">💡 如何加入</text>
+        <text class="tips-item">• 输入房主分享的6位邀请码</text>
+        <text class="tips-item">• 或扫描房主提供的二维码</text>
+        <text class="tips-item">• 加入后可查看房间详情和记录</text>
+      </view>
+    </view>
+  </scroll-view>
+</view>

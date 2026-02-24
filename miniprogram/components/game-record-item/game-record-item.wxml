@@ -1,0 +1,21 @@
+<view class="game-record-item" bindtap="onTap">
+  <view class="record-header">
+    <text class="record-round">第 {{record.roundNumber}} 局</text>
+    <text class="record-time">{{timeText}}</text>
+    <text class="record-balanced {{record.isBalanced ? 'balanced' : 'unbalanced'}}">
+      {{record.isBalanced ? '✓' : '⚠'}}
+    </text>
+  </view>
+
+  <view class="record-scores">
+    <view class="score-item" wx:for="{{record.scores}}" wx:key="openid">
+      <text class="player-name">{{item.nickname}}</text>
+      <view class="score-change">
+        <text class="score-value {{item.scoreChange >= 0 ? 'positive' : 'negative'}}">
+          {{item.scoreChange >= 0 ? '+' : ''}}{{item.scoreChange}}
+        </text>
+        <text class="score-note" wx:if="{{item.note}}">{{item.note}}</text>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,121 @@
+@import '../../styles/theme.scss';
+@import '../../styles/mixins.scss';
+
+.container {
+  min-height: 100vh;
+  background: $bg-primary;
+}
+
+.content {
+  padding: $spacing-xl $spacing-lg;
+  padding-bottom: calc(#{$spacing-2xl} + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+}
+
+.invite-content {
+  animation: fadeInUp 0.35s $transition-normal both;
+
+  .room-name {
+    font-size: $font-2xl;
+    font-weight: 700;
+    color: $text-primary;
+    text-align: center;
+    margin-bottom: $spacing-xl;
+    letter-spacing: 1rpx;
+  }
+
+  .code-section {
+    @include card;
+    padding: $spacing-xl;
+    margin-bottom: $spacing-lg;
+    border: 1rpx solid $primary-pale;
+    background: $primary-pale-light;
+
+    .code-label {
+      display: block;
+      font-size: $font-sm;
+      color: $text-gray;
+      margin-bottom: $spacing-md;
+      text-align: center;
+    }
+
+    .code-row {
+      @include flex-between;
+      align-items: center;
+      margin-bottom: $spacing-sm;
+
+      .code-value {
+        font-size: $font-3xl;
+        font-weight: 700;
+        color: $primary-dark;
+        letter-spacing: 12rpx;
+        font-family: system-ui, sans-serif;
+      }
+
+      .code-copy {
+        font-size: $font-md;
+        color: $primary;
+        font-weight: 600;
+        padding: $spacing-sm $spacing-md;
+        border-radius: $radius-full;
+        background: $primary-pale;
+        transition: all $transition-fast;
+
+        &:active {
+          transform: scale(0.95);
+        }
+      }
+    }
+
+    .code-hint {
+      font-size: $font-xs;
+      color: $text-gray;
+      text-align: center;
+    }
+  }
+
+  .qrcode-placeholder {
+    @include card;
+    padding: $spacing-xl;
+    margin-bottom: $spacing-lg;
+    background: $primary-pale-light;
+    border: 1rpx solid $primary-pale;
+
+    .qrcode-hint {
+      font-size: $font-sm;
+      color: $text-secondary;
+      text-align: center;
+      line-height: 1.6;
+    }
+  }
+
+  .btn-share {
+    @include button-primary-glow;
+    width: 100%;
+    margin-bottom: $spacing-md;
+    padding: $spacing-lg;
+    border-radius: $radius-xl;
+    font-weight: 700;
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+
+  .btn-enter {
+    @include card;
+    width: 100%;
+    padding: $spacing-lg;
+    font-size: $font-md;
+    font-weight: 600;
+    color: $primary;
+    text-align: center;
+    border: 2rpx solid $primary-pale;
+    transition: all $transition-normal;
+
+    &:active {
+      transform: scale(0.98);
+      background: $primary-pale-light;
+    }
+  }
+}

@@ -1,0 +1,143 @@
+@import '../../styles/theme.scss';
+@import '../../styles/mixins.scss';
+
+.skeleton {
+  width: 100%;
+}
+
+// 骨架屏基础元素
+.skeleton-line {
+  background: var(--border-light);
+  border-radius: $radius-md;
+}
+
+.skeleton-avatar {
+  width: 112rpx;
+  height: 112rpx;
+  border-radius: 50%;
+  background: var(--border-light);
+  flex-shrink: 0;
+}
+
+// 闪烁动画
+.skeleton-shimmer {
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.3) 50%,
+      transparent 100%
+    );
+    animation: shimmer 1.5s infinite;
+  }
+}
+
+@keyframes shimmer {
+  to {
+    left: 100%;
+  }
+}
+
+// 用户卡片骨架
+.skeleton-user-card {
+  @include card;
+  padding: $spacing-xl;
+  animation: fadeIn 0.3s ease;
+
+  .skeleton-header {
+    @include flex-start;
+    margin-bottom: $spacing-lg;
+
+    .skeleton-avatar {
+      margin-right: $spacing-lg;
+    }
+
+    .skeleton-info {
+      flex: 1;
+    }
+  }
+
+  .skeleton-stats {
+    @include flex-between;
+    background: var(--bg-primary);
+    border-radius: $radius-lg;
+    padding: $spacing-md $spacing-lg;
+    border: 1rpx solid var(--border-light);
+
+    .skeleton-stat {
+      @include flex-column;
+      align-items: center;
+      flex: 1;
+    }
+  }
+}
+
+// 房间卡片骨架
+.skeleton-room-card {
+  @include card;
+  padding: $spacing-lg $spacing-xl;
+  margin-bottom: $spacing-md;
+  animation: fadeIn 0.3s ease;
+}
+
+// 好友列表项骨架
+.skeleton-friend-item {
+  @include card;
+  @include flex-between;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+  animation: fadeIn 0.3s ease;
+
+  .skeleton-avatar {
+    width: 96rpx;
+    height: 96rpx;
+    margin-right: $spacing-lg;
+  }
+
+  .skeleton-info {
+    @include flex-column;
+    flex: 1;
+  }
+}
+
+// 统计卡片骨架
+.skeleton-stats-card {
+  @include card;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-xl;
+  animation: fadeIn 0.3s ease;
+
+  .skeleton-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-md;
+
+    .skeleton-stat-item {
+      @include flex-column;
+      @include flex-center;
+      padding: $spacing-xl $spacing-lg;
+      background: var(--bg-primary);
+      border-radius: $radius-lg;
+      border: 1rpx solid var(--border-light);
+    }
+  }
+}
+
+// 通用列表骨架
+.skeleton-list {
+  .skeleton-list-item {
+    @include card;
+    padding: $spacing-lg;
+    margin-bottom: $spacing-md;
+    animation: fadeIn 0.3s ease;
+  }
+}

@@ -1,0 +1,62 @@
+<view class="user-card user-card--{{variant}}">
+  <view class="user-header">
+    <button class="avatar-button" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+      <view class="avatar-wrapper">
+        <image class="user-avatar" src="{{user.avatarUrl || '/assets/default-avatar.png'}}" mode="aspectFit"></image>
+        <view class="avatar-mask">
+          <text class="avatar-edit-icon">✏️</text>
+        </view>
+      </view>
+    </button>
+
+    <view class="user-info">
+      <view class="nickname-container">
+        <view class="nickname-display" bindtap="startEditNickname">
+          <text class="nickname-text">{{user.nickname || '点击设置昵称'}}</text>
+          <text class="edit-hint">✏️</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="user-stats" wx:if="{{showStats && user.stats}}">
+    <view class="stat-item">
+      <text class="stat-label">总场次</text>
+      <text class="stat-value">{{user.stats.totalGames}}</text>
+    </view>
+    <view class="stat-divider"></view>
+    <view class="stat-item">
+      <text class="stat-label">胜率</text>
+      <text class="stat-value">{{winRate}}</text>
+    </view>
+    <view class="stat-divider"></view>
+    <view class="stat-item">
+      <text class="stat-label">总输赢</text>
+      <text class="stat-value {{user.stats.totalScoreChange >= 0 ? 'positive' : 'negative'}}">
+        {{user.stats.totalScoreChange >= 0 ? '+' : ''}}{{user.stats.totalScoreChange}}
+      </text>
+    </view>
+  </view>
+</view>
+
+<!-- 弹窗移到 user-card 外层，避免被 overflow:hidden 裁剪 -->
+<view class="nickname-edit-modal" wx:if="{{isEditingNickname}}" bindtap="cancelEdit">
+  <view class="modal-content" catchtap="">
+    <view class="modal-header">
+      <text class="modal-title">设置昵称</text>
+    </view>
+    <input
+      class="nickname-input"
+      type="text"
+      value="{{tempNickname}}"
+      placeholder="输入昵称（最多12字）"
+      maxlength="12"
+      bindinput="onNicknameInput"
+      focus="{{isEditingNickname}}"
+    />
+    <view class="action-row">
+      <button class="btn-action btn-cancel" bindtap="cancelEdit">取消</button>
+      <button class="btn-action btn-confirm" bindtap="confirmNickname">确定</button>
+    </view>
+  </view>
+</view>

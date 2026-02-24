@@ -1,0 +1,298 @@
+@import './theme.scss';
+
+// ========== 卡片（默认样式，大部分场景使用） ==========
+@mixin card {
+  background: $bg-card;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-card;
+  padding: $spacing-lg;
+  border: 1rpx solid $border-light;
+}
+
+@mixin card-elevated {
+  @include card;
+  box-shadow: $shadow-elevated;
+  border: none;
+}
+
+@mixin card-gradient-border {
+  background: $bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: $radius-lg;
+    padding: 2rpx;
+    background: linear-gradient(135deg, $primary-teal, $primary-light);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+
+// ========== 毛玻璃卡片（仅用于导航栏和弹窗） ==========
+@mixin glass-card($bg: $glass-bg, $blur: $glass-blur) {
+  background: $bg;
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+  border: 1rpx solid $glass-border;
+  border-radius: $radius-xl;
+  box-shadow: $shadow-card, inset 0 1rpx 0 $glass-border;
+}
+
+@mixin glass-card-heavy {
+  @include glass-card($glass-bg-heavy, $glass-blur-heavy);
+  box-shadow: $shadow-elevated, inset 0 1rpx 0 $glass-border;
+}
+
+// ========== 渐变文字 ==========
+@mixin gradient-text($gradient: linear-gradient(135deg, $primary-teal, $primary-light)) {
+  background: $gradient;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+// ========== 按钮 ==========
+@mixin button-primary {
+  background: $gradient-primary;
+  color: $text-on-primary;
+  border-radius: $radius-md;
+  padding: $spacing-md $spacing-xl;
+  font-weight: 600;
+  font-size: $font-md;
+  border: none;
+  box-shadow: $shadow-md;
+  position: relative;
+  overflow: hidden;
+}
+
+@mixin button-primary-glow {
+  @include button-primary;
+  box-shadow: $shadow-md, 0 4rpx 16rpx $primary-glow;
+}
+
+@mixin button-primary-press {
+  &:active {
+    opacity: 0.9;
+    transform: scale(0.98);
+  }
+}
+
+@mixin button-secondary {
+  background: $bg-card;
+  color: $primary;
+  border: 2rpx solid $primary;
+  border-radius: $radius-md;
+  padding: $spacing-md $spacing-xl;
+  font-weight: 600;
+  font-size: $font-md;
+  box-shadow: $shadow-sm;
+}
+
+@mixin button-danger {
+  background: linear-gradient(135deg, #B91C1C, #EF4444);
+  color: $text-on-primary;
+  border-radius: $radius-md;
+  padding: $spacing-md $spacing-xl;
+  font-weight: 600;
+  font-size: $font-md;
+  border: none;
+}
+
+// ========== 余额/积分 ==========
+@mixin balance-positive {
+  color: $gold;
+  font-weight: 700;
+}
+
+@mixin balance-negative {
+  color: $red;
+  font-weight: 700;
+}
+
+@mixin balance-neutral {
+  color: $text-secondary;
+  font-weight: 600;
+}
+
+@mixin balance-positive-glow {
+  @include balance-positive;
+  text-shadow: 0 0 12rpx rgba(217, 119, 6, 0.2);
+}
+
+// ========== Flex ==========
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-start {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+// ========== 文本 ==========
+@mixin text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin text-ellipsis-multi($lines: 2) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $lines;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// ========== 阴影 ==========
+@mixin shadow-sm {
+  box-shadow: $shadow-sm;
+}
+
+@mixin shadow-md {
+  box-shadow: $shadow-md;
+}
+
+@mixin shadow-lg {
+  box-shadow: $shadow-lg;
+}
+
+@mixin shadow-glow {
+  box-shadow: $shadow-glow;
+}
+
+// ========== 头像 ==========
+@mixin avatar($size: 80rpx) {
+  width: $size;
+  height: $size;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+@mixin avatar-glow-border($size: 80rpx, $border-width: 3rpx) {
+  width: $size;
+  height: $size;
+  border-radius: 50%;
+  overflow: hidden;
+  border: $border-width solid transparent;
+  background-clip: padding-box;
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -$border-width;
+    border-radius: 50%;
+    padding: $border-width;
+    background: linear-gradient(135deg, $primary-teal, $primary-light);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+
+// ========== 标签 ==========
+@mixin tag {
+  display: inline-block;
+  padding: 6rpx 16rpx;
+  border-radius: $radius-full;
+  font-size: $font-xs;
+  font-weight: 600;
+}
+
+@mixin tag-success {
+  @include tag;
+  background: $primary-pale;
+  color: $primary-dark;
+}
+
+@mixin tag-warning {
+  @include tag;
+  background: rgba(217, 119, 6, 0.12);
+  color: $gold;
+}
+
+@mixin tag-danger {
+  @include tag;
+  background: rgba(239, 68, 68, 0.08);
+  color: $red;
+}
+
+@mixin badge {
+  background: $gradient-primary;
+  color: $text-on-primary;
+  border-radius: $radius-full;
+  padding: 6rpx 14rpx;
+  font-size: $font-xs;
+  font-weight: 600;
+}
+
+@mixin tag-capsule($bg, $color) {
+  display: inline-flex;
+  align-items: center;
+  padding: 8rpx 20rpx;
+  border-radius: $radius-full;
+  font-size: $font-xs;
+  font-weight: 600;
+  background: $bg;
+  color: $color;
+  border: 1rpx solid rgba($color, 0.12);
+}
+
+// ========== 分割线 ==========
+@mixin divider {
+  height: 1rpx;
+  background: $border-color;
+  margin: $spacing-md 0;
+}
+
+@mixin divider-gradient {
+  height: 1rpx;
+  background: linear-gradient(90deg, transparent, $border-color, transparent);
+  margin: $spacing-md 0;
+  border: none;
+}
+
+// ========== 入场动画 ==========
+@mixin stagger-children($count: 10, $delay: 0.05s) {
+  @for $i from 1 through $count {
+    &:nth-child(#{$i}) {
+      animation-delay: #{$i * $delay};
+    }
+  }
+}
+
+// ========== 输入框 ==========
+@mixin input-glow {
+  border: 2rpx solid $border-color;
+  border-radius: $radius-lg;
+  transition: border-color $transition-normal, box-shadow $transition-normal;
+  &:focus {
+    border-color: $primary-light;
+    box-shadow: 0 0 0 3rpx rgba(79, 70, 229, 0.1);
+  }
+}

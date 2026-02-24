@@ -1,0 +1,147 @@
+@import '../../styles/theme.scss';
+@import '../../styles/mixins.scss';
+
+.container {
+  min-height: 100vh;
+  background: $bg-primary;
+  display: flex;
+  flex-direction: column;
+}
+
+.tabs {
+  position: fixed;
+  left: 0;
+  right: 0;
+  @include flex-start;
+  background: $bg-card;
+  border-bottom: 1rpx solid $border-light;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
+  padding: $spacing-sm $spacing-lg;
+  z-index: 100;
+
+  .tab-item {
+    flex: 1;
+    @include flex-column;
+    @include flex-center;
+    padding: $spacing-md $spacing-lg;
+    border-radius: $radius-lg;
+    transition: all $transition-normal;
+    position: relative;
+
+    .tab-label {
+      font-size: $font-md;
+      color: $text-secondary;
+      font-weight: 600;
+      transition: color $transition-fast;
+    }
+
+    .tab-indicator {
+      position: absolute;
+      bottom: 4rpx;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 48rpx;
+      height: 6rpx;
+      background: $gradient-primary;
+      border-radius: $radius-full;
+      animation: slideIn 0.3s $transition-bounce;
+    }
+
+    &.active {
+      .tab-label {
+        color: $primary;
+        font-weight: 700;
+      }
+    }
+
+    &:active {
+      background: rgba(79, 70, 229, 0.05);
+    }
+  }
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 180rpx;
+  padding-bottom: calc(180rpx + constant(safe-area-inset-bottom));
+  padding-bottom: calc(180rpx + env(safe-area-inset-bottom));
+}
+
+.swiper {
+  flex: 1;
+  height: 100%;
+
+  .swiper-item {
+    height: 100%;
+
+    .scroll-view {
+      height: 100%;
+    }
+
+    .room-list {
+      min-height: 100%;
+      padding: $spacing-lg;
+
+      .list-content {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-md;
+      }
+    }
+  }
+}
+
+.fab-group {
+  position: fixed;
+  right: $spacing-xl;
+  bottom: 140rpx;
+  bottom: calc(140rpx + constant(safe-area-inset-bottom));
+  bottom: calc(140rpx + env(safe-area-inset-bottom));
+  @include flex-column;
+  align-items: flex-end;
+  gap: $spacing-md;
+  z-index: 50;
+
+  .fab-item {
+    @include flex-center;
+    width: 104rpx;
+    height: 104rpx;
+    border-radius: 50%;
+    background: $bg-card;
+    box-shadow: $shadow-elevated;
+    border: 1rpx solid $border-light;
+    transition: all $transition-bounce;
+
+    &:active {
+      transform: scale(0.9);
+    }
+
+    &.primary {
+      background: $gradient-primary;
+      box-shadow: $shadow-elevated, 0 4rpx 16rpx $primary-glow;
+      border: none;
+
+      .fab-icon {
+        color: $text-on-primary;
+      }
+    }
+
+    .fab-icon {
+      font-size: 48rpx;
+    }
+  }
+}
+
+// 动画
+@keyframes slideIn {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 48rpx;
+    opacity: 1;
+  }
+}

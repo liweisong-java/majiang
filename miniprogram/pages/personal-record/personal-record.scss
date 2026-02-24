@@ -1,0 +1,340 @@
+@import '../../styles/theme.scss';
+@import '../../styles/mixins.scss';
+
+.container {
+  min-height: 100vh;
+  background: $bg-primary;
+}
+
+.content {
+  min-height: 100%;
+  padding: $spacing-lg;
+  padding-bottom: 120rpx;
+  box-sizing: border-box;
+}
+
+/* 标签切换 */
+.tabs {
+  @include flex-start;
+  background: $bg-card;
+  border: 1rpx solid $border-light;
+  box-shadow: $shadow-sm;
+  padding: 6rpx;
+  margin-bottom: $spacing-lg;
+  border-radius: $radius-full;
+
+  .tab-item {
+    flex: 1;
+    @include flex-center;
+    padding: $spacing-md $spacing-lg;
+    border-radius: $radius-full;
+    transition: all $transition-normal;
+
+    .tab-label {
+      font-size: $font-md;
+      color: $text-secondary;
+      font-weight: 600;
+    }
+
+    &.active {
+      background: $gradient-primary;
+      box-shadow: $shadow-md;
+
+      .tab-label {
+        color: $text-on-primary;
+      }
+    }
+  }
+}
+
+.tab-content {
+  animation: fadeInUp 0.3s $transition-normal both;
+}
+
+/* 表单区 */
+.form-section {
+  .form-card {
+    @include card;
+    padding: $spacing-lg;
+    margin-bottom: $spacing-md;
+    animation: fadeInUp 0.35s $transition-normal both;
+
+    &:nth-child(1) { animation-delay: 0.03s; }
+    &:nth-child(2) { animation-delay: 0.06s; }
+    &:nth-child(3) { animation-delay: 0.09s; }
+    &:nth-child(4) { animation-delay: 0.12s; }
+
+    .form-card-header {
+      @include flex-between;
+      margin-bottom: $spacing-md;
+    }
+
+    .form-card-title {
+      display: block;
+      font-size: $font-md;
+      font-weight: 700;
+      color: $text-primary;
+      margin-bottom: $spacing-md;
+    }
+
+    .form-card-header .form-card-title {
+      margin-bottom: 0;
+    }
+  }
+}
+
+/* 游戏类型网格 */
+.game-type-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+
+  .type-chip {
+    padding: $spacing-sm $spacing-lg;
+    border-radius: $radius-full;
+    font-size: $font-sm;
+    font-weight: 600;
+    color: $text-secondary;
+    background: $bg-primary;
+    border: 2rpx solid $border-light;
+    transition: all $transition-normal;
+
+    &.active {
+      background: $primary-pale;
+      color: $primary-dark;
+      border-color: $primary-pale;
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+}
+
+.custom-type-input {
+  margin-top: $spacing-md;
+  padding: $spacing-md;
+  font-size: $font-md;
+  @include input-glow;
+}
+
+/* 结算方式 */
+.mode-switch {
+  display: flex;
+  background: $bg-primary;
+  border-radius: $radius-full;
+  padding: 4rpx;
+  border: 1rpx solid $border-light;
+
+  .mode-item {
+    flex: 1;
+    @include flex-center;
+    padding: $spacing-md;
+    border-radius: $radius-full;
+    font-size: $font-md;
+    font-weight: 600;
+    color: $text-secondary;
+    transition: all $transition-normal;
+
+    &.active {
+      background: $gradient-primary;
+      color: $text-on-primary;
+      box-shadow: $shadow-sm;
+    }
+  }
+}
+
+/* 添加玩家按钮 */
+.add-player-btn {
+  padding: $spacing-xs $spacing-md;
+  border-radius: $radius-full;
+  background: $primary-pale;
+  color: $primary-dark;
+  font-size: $font-sm;
+  font-weight: 600;
+  transition: all $transition-fast;
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+/* 玩家列表 */
+.player-list {
+  .player-row {
+    @include flex-between;
+    gap: $spacing-md;
+    margin-bottom: $spacing-md;
+    animation: fadeInUp 0.3s $transition-normal both;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .player-name-wrap {
+      flex: 1;
+
+      .player-name-input {
+        padding: $spacing-md;
+        font-size: $font-md;
+        color: $text-primary;
+        @include input-glow;
+        border-radius: $radius-md;
+      }
+    }
+
+    .player-score-wrap {
+      width: 200rpx;
+
+      .player-score-input {
+        padding: $spacing-md;
+        font-size: $font-lg;
+        font-weight: 700;
+        color: $text-primary;
+        text-align: center;
+        @include input-glow;
+        border-radius: $radius-md;
+      }
+    }
+
+    .remove-player-btn {
+      width: 56rpx;
+      height: 56rpx;
+      @include flex-center;
+      border-radius: 50%;
+      color: $text-gray;
+      font-size: $font-sm;
+      flex-shrink: 0;
+      align-self: center;
+      transition: all $transition-fast;
+
+      &:active {
+        background: rgba(239, 68, 68, 0.08);
+        color: $red;
+      }
+    }
+  }
+}
+
+/* 合计 */
+.total-row {
+  @include flex-between;
+  margin-top: $spacing-lg;
+  padding-top: $spacing-md;
+  border-top: 2rpx solid $border-light;
+
+  .total-label {
+    font-size: $font-md;
+    color: $text-secondary;
+    font-weight: 600;
+  }
+
+  .total-value {
+    font-size: $font-xl;
+    font-weight: 700;
+
+    &.balanced {
+      color: $primary;
+    }
+
+    &.unbalanced {
+      color: $red;
+    }
+  }
+}
+
+/* 备注 */
+.note-input {
+  padding: $spacing-md;
+  font-size: $font-md;
+  @include input-glow;
+}
+
+/* 提交按钮 */
+.submit-btn {
+  @include button-primary-glow;
+  width: 100%;
+  padding: $spacing-lg;
+  border-radius: $radius-xl;
+  font-size: $font-lg;
+  font-weight: 700;
+  margin-top: $spacing-md;
+  animation: fadeInUp 0.35s $transition-normal both;
+  animation-delay: 0.15s;
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+/* ========== 历史记录 ========== */
+.records-list {
+  .record-item {
+    @include card;
+    padding: $spacing-lg;
+    margin-bottom: $spacing-md;
+    animation: fadeInUp 0.35s $transition-normal both;
+    @include stagger-children(20, 0.03s);
+
+    .record-item-header {
+      @include flex-start;
+      gap: $spacing-sm;
+      margin-bottom: $spacing-md;
+      align-items: center;
+
+      .record-type-tag {
+        background: $gradient-primary;
+        color: $text-on-primary;
+        font-size: $font-xs;
+        font-weight: 600;
+        padding: 6rpx 16rpx;
+        border-radius: $radius-full;
+      }
+
+      .record-date {
+        flex: 1;
+        font-size: $font-sm;
+        color: $text-gray;
+      }
+
+      .record-mode {
+        font-size: $font-md;
+      }
+    }
+
+    .record-players {
+      .record-player {
+        @include flex-between;
+        padding: $spacing-xs 0;
+
+        .rp-name {
+          font-size: $font-md;
+          color: $text-primary;
+          font-weight: 500;
+        }
+
+        .rp-score {
+          font-size: $font-md;
+          font-weight: 700;
+
+          &.positive {
+            color: $gold;
+          }
+
+          &.negative {
+            color: $red;
+          }
+        }
+      }
+    }
+
+    .record-note {
+      display: block;
+      margin-top: $spacing-sm;
+      padding-top: $spacing-sm;
+      border-top: 1rpx solid $border-light;
+      font-size: $font-sm;
+      color: $text-gray;
+    }
+  }
+}

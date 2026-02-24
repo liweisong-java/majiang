@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "navigation-bar": "/components/navigation-bar/navigation-bar",
+    "loading-spinner": "/components/loading-spinner/loading-spinner",
+    "balance-chart": "/components/balance-chart/balance-chart",
+    "balance-history": "/components/balance-history/balance-history"
+  }
+}

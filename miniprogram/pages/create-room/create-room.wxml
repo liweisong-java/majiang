@@ -1,0 +1,33 @@
+<view class="container">
+  <navigation-bar title="开房间" bind:back="onBack"></navigation-bar>
+
+  <scroll-view class="content" scroll-y style="padding-top: {{navBarHeight}}px;">
+    <view class="form">
+      <view class="form-item">
+        <text class="form-label">房间名称</text>
+        <input
+          class="form-input"
+          placeholder="选填，默认牌局+日期"
+          value="{{roomName}}"
+          bindinput="onRoomNameInput"
+          maxlength="20"
+        />
+      </view>
+
+      <view class="form-tips">
+        <text class="tips-title">💡 说明</text>
+        <text class="tips-item">• 创建后可分享二维码或微信邀请好友进房</text>
+        <text class="tips-item">• 进房后点击对方头像即可给 TA 转积分</text>
+      </view>
+
+      <button
+        class="create-button"
+        bindtap="onCreateRoom"
+        loading="{{creating}}"
+        disabled="{{creating}}"
+      >
+        {{creating ? '创建中...' : '开房'}}
+      </button>
+    </view>
+  </scroll-view>
+</view>

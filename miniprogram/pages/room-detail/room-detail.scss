@@ -1,0 +1,531 @@
+@import '../../styles/theme.scss';
+@import '../../styles/mixins.scss';
+
+.container {
+  min-height: 100vh;
+  background: $bg-primary;
+}
+
+.content {
+  min-height: 100%;
+  padding: $spacing-md;
+  padding-top: calc(44px + env(safe-area-inset-top) + #{$spacing-md});
+  padding-bottom: calc(#{$spacing-xl} + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+}
+
+// ── 主内容区 ──────────────────────────────────────────
+.room-content {
+  animation: fadeInUp 0.35s $transition-normal both;
+}
+
+// ── 顶部操作按钮 ──────────────────────────────────────
+.room-header {
+  margin-bottom: $spacing-md;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+
+  .header-actions-row {
+    display: flex;
+    gap: $spacing-sm;
+  }
+
+  .action-btn {
+    border: none;
+    font-weight: 600;
+    transition: all $transition-fast;
+    line-height: 1;
+
+    &::after { border: none; }
+
+    &:active { transform: scale(0.97); }
+
+    &.invite {
+      flex: 1;
+      @include card;
+      padding: $spacing-md $spacing-lg;
+      font-size: $font-sm;
+      color: $primary;
+      border: 2rpx solid $primary-pale;
+      border-radius: $radius-lg;
+    }
+
+    &.leave {
+      flex: 1;
+      @include card;
+      padding: $spacing-md $spacing-lg;
+      font-size: $font-sm;
+      color: $red;
+      border: 2rpx solid rgba(239, 68, 68, 0.15);
+      border-radius: $radius-lg;
+    }
+
+    &.end {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: $spacing-sm;
+      padding: $spacing-lg $spacing-xl;
+      border-radius: $radius-lg;
+      background: linear-gradient(135deg, #B91C1C, #EF4444);
+      box-shadow: 0 8rpx 24rpx rgba(239, 68, 68, 0.4), 0 2rpx 8rpx rgba(239, 68, 68, 0.2);
+      color: $text-on-primary;
+
+      &:active {
+        transform: scale(0.98);
+        box-shadow: 0 4rpx 12rpx rgba(239, 68, 68, 0.3);
+      }
+
+      .end-icon {
+        font-size: $font-md;
+        line-height: 1;
+      }
+
+      .end-label {
+        font-size: $font-md;
+        font-weight: 700;
+        letter-spacing: 2rpx;
+      }
+    }
+  }
+}
+
+// ── 已结束 banner ─────────────────────────────────────
+.settled-banner {
+  @include card;
+  @include flex-between;
+  padding: $spacing-lg $spacing-xl;
+  margin-bottom: $spacing-md;
+  border: 1rpx solid $primary-pale;
+  background: $primary-pale-light;
+  animation: fadeInUp 0.35s $transition-normal both;
+
+  .settled-text {
+    font-size: $font-md;
+    color: $primary-dark;
+    font-weight: 700;
+  }
+
+  .settled-btn {
+    font-size: $font-md;
+    color: $primary;
+    font-weight: 600;
+  }
+}
+
+// ── 成员积分区 ────────────────────────────────────────
+.members-section {
+  @include card;
+  margin-bottom: $spacing-lg;
+  padding: $spacing-md;
+
+  .section-hint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-xs;
+    font-size: $font-xs;
+    color: $text-gray;
+    margin-bottom: $spacing-md;
+
+    &::before {
+      content: '👆';
+      font-size: 24rpx;
+    }
+  }
+
+  .members-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140rpx, 1fr));
+    gap: $spacing-md;
+    justify-items: center;
+  }
+
+  .member-card {
+    @include flex-column;
+    @include flex-center;
+    width: 100%;
+    max-width: 160rpx;
+    padding: $spacing-md;
+    border-radius: $radius-lg;
+    background: $bg-primary;
+    border: 1rpx solid $border-light;
+    transition: all $transition-normal;
+    animation: scaleIn 0.35s $transition-normal both;
+    @include stagger-children(8, 0.04s);
+
+    &:active { transform: scale(0.95); }
+
+    &.is-me {
+      background: $primary-pale-light;
+      border-color: $primary-pale;
+      border-width: 2rpx;
+    }
+
+    &.is-left {
+      opacity: 0.5;
+      .member-avatar { filter: grayscale(100%); }
+    }
+
+    .member-avatar-wrap {
+      position: relative;
+      margin-bottom: $spacing-xs;
+    }
+
+    .member-avatar {
+      width: 88rpx;
+      height: 88rpx;
+      border-radius: 50%;
+      display: block;
+      box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.08);
+    }
+
+    .member-badge {
+      position: absolute;
+      bottom: -4rpx;
+      right: -4rpx;
+      background: $gradient-primary;
+      color: $text-on-primary;
+
+      &.left-badge {
+        background: $text-gray;
+        font-size: 18rpx;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        white-space: nowrap;
+      }
+    }
+
+    .member-name {
+      font-size: $font-xs;
+      color: $text-primary;
+      margin-bottom: $spacing-xs;
+      @include text-ellipsis;
+      max-width: 100%;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .member-balance {
+      font-size: $font-md;
+      font-weight: 700;
+
+      &.positive { @include balance-positive; }
+      &.negative { color: $red; }
+    }
+  }
+}
+
+// ── 弹窗通用遮罩 ──────────────────────────────────────
+.invite-modal,
+.transfer-modal,
+.stats-modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(17, 24, 39, 0.75);
+  backdrop-filter: blur(8rpx);
+  -webkit-backdrop-filter: blur(8rpx);
+  @include flex-center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease both;
+  overflow-y: auto;
+  padding: $spacing-xl $spacing-md;
+}
+
+// ── 弹窗内容通用 ──────────────────────────────────────
+.invite-modal .modal-content,
+.transfer-modal .transfer-content,
+.stats-modal .stats-content {
+  @include glass-card-heavy;
+  width: 620rpx;
+  max-width: 90vw;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+  border-radius: $radius-2xl;
+  box-shadow: $shadow-float;
+  padding: $spacing-xl $spacing-lg;
+  margin: auto;
+  animation: modalIn 0.3s $transition-bounce both;
+
+  .modal-title {
+    display: block;
+    font-size: $font-xl;
+    font-weight: 700;
+    color: $text-primary;
+    text-align: center;
+    margin-bottom: $spacing-lg;
+    padding-right: 60rpx;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: $spacing-md;
+    right: $spacing-md;
+    width: 56rpx;
+    height: 56rpx;
+    @include flex-center;
+    font-size: $font-lg;
+    color: $text-gray;
+    border-radius: 50%;
+    transition: background $transition-fast;
+    z-index: 10;
+
+    &:active { background: $bg-card-hover; }
+  }
+}
+
+// ── 邀请弹窗 ──────────────────────────────────────────
+.invite-modal .modal-content {
+  .invite-code-display {
+    @include flex-column;
+    @include flex-center;
+    background: $primary-pale-light;
+    border-radius: $radius-lg;
+    padding: $spacing-lg;
+    margin-bottom: $spacing-lg;
+    border: 1rpx solid $primary-pale;
+
+    .invite-label {
+      font-size: $font-sm;
+      color: $text-gray;
+      margin-bottom: $spacing-md;
+    }
+
+    .invite-code-chars {
+      display: flex;
+      gap: $spacing-xs;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      .code-char {
+        width: 64rpx;
+        height: 76rpx;
+        @include flex-center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: $bg-card;
+        border-radius: $radius-md;
+        font-size: $font-2xl;
+        font-weight: 700;
+        color: $primary-dark;
+        box-shadow: $shadow-sm;
+        border: 1rpx solid $border-light;
+        animation: scaleIn 0.25s $transition-bounce both;
+        @include stagger-children(6, 0.03s);
+      }
+    }
+  }
+
+  .modal-btn {
+    width: 100%;
+    border-radius: $radius-lg;
+    padding: $spacing-lg;
+    font-size: $font-md;
+    font-weight: 600;
+    margin-bottom: $spacing-md;
+    transition: all $transition-fast;
+
+    &:last-of-type { margin-bottom: 0; }
+    &::after { border: none; }
+
+    &.copy {
+      @include button-primary-glow;
+      border-radius: $radius-lg;
+      padding: $spacing-lg;
+    }
+
+    &.share {
+      @include card;
+      color: $primary;
+      border: 2rpx solid $primary-pale;
+      padding: $spacing-lg;
+    }
+  }
+}
+
+// ── 转积分弹窗 ────────────────────────────────────────
+.transfer-modal .transfer-content {
+  .transfer-info-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: $spacing-lg;
+    padding: $spacing-md;
+    background: $bg-primary;
+    border-radius: $radius-lg;
+    border: 1rpx solid $border-light;
+
+    .transfer-info-item {
+      @include flex-column;
+      @include flex-center;
+      flex: 1;
+
+      &.my-info { border-left: 1rpx solid $border-light; }
+    }
+
+    .transfer-avatar {
+      width: 80rpx;
+      height: 80rpx;
+      border-radius: 50%;
+      margin-bottom: $spacing-xs;
+      border: 2rpx solid $border-light;
+    }
+
+    .transfer-info-label {
+      font-size: $font-sm;
+      color: $text-secondary;
+      font-weight: 600;
+      margin-bottom: $spacing-xs;
+    }
+
+    .transfer-info-value {
+      font-size: $font-md;
+      font-weight: 700;
+      color: $text-primary;
+
+      &.positive { @include balance-positive; }
+      &.negative { color: $red; }
+    }
+  }
+
+  .transfer-input-wrap {
+    margin-bottom: $spacing-md;
+
+    .transfer-input {
+      width: 100%;
+      height: 100rpx;
+      line-height: 100rpx;
+      padding: 0 $spacing-lg;
+      font-size: $font-xl;
+      font-weight: 700;
+      text-align: center;
+      border: 2rpx solid $border-color;
+      border-radius: $radius-lg;
+      box-sizing: border-box;
+      transition: border-color $transition-fast, box-shadow $transition-fast;
+
+      &:focus {
+        border-color: $primary-light;
+        box-shadow: 0 0 0 3rpx $primary-pale;
+      }
+    }
+  }
+
+  .transfer-tip {
+    display: block;
+    font-size: $font-xs;
+    color: $text-gray;
+    text-align: center;
+    margin-bottom: $spacing-lg;
+  }
+
+  .modal-btn.submit {
+    @include button-primary-glow;
+    width: 100%;
+    padding: $spacing-lg;
+    border-radius: $radius-lg;
+    font-size: $font-md;
+    transition: all $transition-fast;
+
+    &::after { border: none; }
+  }
+}
+
+// ── 本局统计弹窗 ──────────────────────────────────────
+.stats-modal .stats-content {
+  .stats-list {
+    margin-bottom: $spacing-lg;
+    max-height: 50vh;
+    overflow-y: auto;
+  }
+
+  .stats-row {
+    @include flex-start;
+    padding: $spacing-md 0;
+    border-bottom: 1rpx solid $border-light;
+    animation: fadeInUp 0.25s $transition-normal both;
+    @include stagger-children(8, 0.04s);
+
+    &:last-child { border-bottom: none; }
+
+    .stats-rank {
+      width: 48rpx;
+      height: 48rpx;
+      @include flex-center;
+      font-size: $font-md;
+      font-weight: 700;
+      color: $text-secondary;
+      border-radius: $radius-md;
+      margin-right: $spacing-sm;
+      flex-shrink: 0;
+
+      &.rank-1 { background: linear-gradient(135deg, #FDE68A, #F59E0B); color: $text-on-primary; }
+      &.rank-2 { background: linear-gradient(135deg, #E5E7EB, #9CA3AF); color: $text-on-primary; }
+      &.rank-3 { background: linear-gradient(135deg, #FED7AA, #EA580C); color: $text-on-primary; }
+    }
+
+    .stats-avatar {
+      width: 68rpx;
+      height: 68rpx;
+      border-radius: 50%;
+      margin-right: $spacing-md;
+      border: 2rpx solid $border-light;
+      flex-shrink: 0;
+    }
+
+    .stats-name {
+      flex: 1;
+      font-size: $font-md;
+      color: $text-primary;
+      font-weight: 500;
+      @include text-ellipsis;
+      min-width: 0;
+    }
+
+    .stats-score {
+      font-size: $font-lg;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-left: $spacing-sm;
+
+      &.positive { @include balance-positive; }
+      &.negative { color: $red; }
+    }
+  }
+
+  .modal-btn.share {
+    @include button-primary-glow;
+    width: 100%;
+    padding: $spacing-lg;
+    border-radius: $radius-lg;
+    transition: all $transition-fast;
+
+    &::after { border: none; }
+  }
+}
+
+// ── 动画 ──────────────────────────────────────────────
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24rpx); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(40rpx) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}

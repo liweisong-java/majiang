@@ -1,0 +1,84 @@
+<view class="container">
+  <navigation-bar title="打牌记账" extClass="nav-bar">
+    <view slot="right" class="theme-toggle" bindtap="onToggleTheme">
+      <text class="theme-icon">{{currentTheme === 'dark' ? '☀️' : '🌙'}}</text>
+    </view>
+  </navigation-bar>
+
+  <scroll-view class="content" scroll-y style="padding-top: {{navBarHeight}}px;">
+
+    <!-- 骨架屏 -->
+    <block wx:if="{{loading}}">
+      <view class="skeleton-hero"></view>
+      <view class="skeleton-actions"></view>
+      <view class="skeleton-room"></view>
+    </block>
+
+    <block wx:if="{{!loading}}">
+
+      <!-- ① 顶部 Hero Banner -->
+      <view class="hero">
+        <view class="hero-bg-blob b1"></view>
+        <view class="hero-bg-blob b2"></view>
+        <user-card
+          wx:if="{{user}}"
+          user="{{user}}"
+          variant="hero"
+          bind:userupdate="onUserUpdate">
+        </user-card>
+      </view>
+
+      <!-- ② 主操作区 -->
+      <view class="actions">
+        <view class="action-primary" bindtap="onCreateRoom">
+          <view class="action-primary-icon">🀄</view>
+          <view class="action-primary-text">
+            <text class="action-primary-title">开一局</text>
+            <text class="action-primary-sub">创建新的牌局房间</text>
+          </view>
+          <view class="action-arrow">›</view>
+        </view>
+
+        <view class="action-row">
+          <view class="action-secondary" bindtap="onJoinRoom">
+            <text class="action-secondary-icon">🤝</text>
+            <text class="action-secondary-label">加入房间</text>
+          </view>
+          <view class="action-secondary" bindtap="onViewAllRooms">
+            <text class="action-secondary-icon">📋</text>
+            <text class="action-secondary-label">历史牌局</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- ③ 进行中的牌局 -->
+      <view class="section" wx:if="{{activeRooms.length > 0}}">
+        <view class="section-header">
+          <view class="section-header-left">
+            <view class="section-dot"></view>
+            <text class="section-title">进行中</text>
+            <view class="section-badge">{{activeRooms.length}}</view>
+          </view>
+          <text class="section-more" bindtap="onViewAllRooms">全部 ›</text>
+        </view>
+        <view class="room-list">
+          <room-card
+            wx:for="{{activeRooms}}"
+            wx:key="_id"
+            room="{{item}}"
+            myBalance="{{item.myBalance}}"
+            bind:tap="onRoomTap">
+          </room-card>
+        </view>
+      </view>
+
+      <!-- ④ 空状态 -->
+      <view class="empty-block" wx:if="{{activeRooms.length === 0}}">
+        <text class="empty-icon">🎴</text>
+        <text class="empty-text">暂无进行中的牌局</text>
+        <view class="empty-btn" bindtap="onCreateRoom">立即开局</view>
+      </view>
+
+    </block>
+  </scroll-view>
+</view>

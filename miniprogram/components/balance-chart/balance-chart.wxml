@@ -1,0 +1,32 @@
+<view class="balance-chart">
+  <view class="chart-header">
+    <text class="chart-title">积分变化趋势</text>
+    <button class="reset-btn" bindtap="resetZoom" wx:if="{{scale !== 1 || offsetX !== 0}}">
+      重置
+    </button>
+  </view>
+
+  <view class="chart-container">
+    <canvas
+      type="2d"
+      id="{{canvasId}}"
+      class="chart-canvas"
+      style="height: {{height}}px;"
+      bindtouchstart="onTouchStart"
+      bindtouchmove="onTouchMove"
+      bindtouchend="onTouchEnd"
+      bindtap="onTap"
+    ></canvas>
+
+    <view class="chart-hint">
+      <text class="hint-text">💡 双指缩放查看详情，单指拖动查看历史</text>
+    </view>
+  </view>
+
+  <!-- 工具提示 -->
+  <view class="tooltip" wx:if="{{showTooltip}}" style="left: {{tooltipX}}px; top: {{tooltipY}}px;">
+    <view class="tooltip-content">
+      <text class="tooltip-text">{{selectedPoint.text}}</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,132 @@
+@import '../../styles/theme.scss';
+@import '../../styles/mixins.scss';
+
+.container {
+  min-height: 100vh;
+  background: $bg-primary;
+}
+
+.content {
+  min-height: 100%;
+  padding: $spacing-xl $spacing-lg;
+  padding-bottom: $spacing-2xl;
+  padding-bottom: calc(#{$spacing-2xl} + constant(safe-area-inset-bottom));
+  padding-bottom: calc(#{$spacing-2xl} + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+}
+
+.join-form {
+  animation: fadeInUp 0.35s $transition-normal both;
+
+  .code-input-wrapper {
+    @include card;
+    margin-bottom: $spacing-xl;
+    padding: $spacing-xl;
+
+    .input-label {
+      display: block;
+      font-size: $font-sm;
+      color: $text-gray;
+      margin-bottom: $spacing-md;
+      text-align: center;
+    }
+
+    .code-input {
+      font-size: $font-2xl;
+      color: $text-primary;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 12rpx;
+      padding: $spacing-lg 0;
+      transition: all $transition-normal;
+
+      &:focus {
+        color: $primary;
+      }
+    }
+  }
+
+  .join-button {
+    @include button-primary-glow;
+    width: 100%;
+    padding: $spacing-lg;
+    margin-bottom: $spacing-xl;
+    border-radius: $radius-xl;
+    font-weight: 700;
+    font-size: $font-lg;
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+
+  .divider {
+    @include flex-center;
+    margin-bottom: $spacing-xl;
+
+    .divider-line {
+      flex: 1;
+      height: 1rpx;
+      background: linear-gradient(90deg, transparent, $border-color, transparent);
+    }
+
+    .divider-text {
+      margin: 0 $spacing-md;
+      font-size: $font-sm;
+      color: $text-gray;
+    }
+  }
+
+  .scan-button {
+    @include card;
+    @include flex-center;
+    width: 100%;
+    padding: $spacing-lg;
+    margin-bottom: $spacing-xl;
+    color: $primary;
+    font-weight: 600;
+    border: 2rpx solid $primary-pale;
+    transition: all $transition-normal;
+
+    &:active {
+      transform: scale(0.98);
+      background: $primary-pale-light;
+    }
+
+    .scan-icon {
+      font-size: $font-xl;
+      margin-right: $spacing-sm;
+    }
+
+    .scan-text {
+      font-size: $font-md;
+    }
+  }
+
+  .tips {
+    @include card;
+    padding: $spacing-xl;
+    background: $primary-pale-light;
+    border: 1rpx solid $primary-pale;
+
+    .tips-title {
+      display: block;
+      font-size: $font-md;
+      color: $primary-dark;
+      font-weight: 700;
+      margin-bottom: $spacing-md;
+    }
+
+    .tips-item {
+      display: block;
+      font-size: $font-sm;
+      color: $text-secondary;
+      line-height: 1.8;
+      margin-bottom: $spacing-xs;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

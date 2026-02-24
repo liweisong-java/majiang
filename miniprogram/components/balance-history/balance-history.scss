@@ -1,0 +1,142 @@
+@import '../../styles/theme.scss';
+@import '../../styles/mixins.scss';
+
+.balance-history {
+  @include card;
+  padding: $spacing-md;
+  margin-bottom: $spacing-lg;
+
+  .history-header {
+    @include flex-between;
+    align-items: center;
+    margin-bottom: $spacing-md;
+    padding-bottom: $spacing-sm;
+    border-bottom: 1rpx solid $border-light;
+
+    .history-title {
+      font-size: $font-lg;
+      font-weight: 700;
+      color: $text-primary;
+    }
+
+    .history-count {
+      font-size: $font-sm;
+      color: $text-gray;
+    }
+  }
+
+  .history-list {
+    .history-item {
+      padding: $spacing-md;
+      margin-bottom: $spacing-sm;
+      background: $bg-primary;
+      border-radius: $radius-md;
+      border: 1rpx solid $border-light;
+      transition: all $transition-fast;
+
+      &:active {
+        background: $bg-card-hover;
+      }
+
+      &.related-to-me {
+        background: $primary-pale-light;
+        border-color: $primary-pale;
+      }
+
+      .item-main {
+        @include flex-between;
+        align-items: center;
+
+        .item-left {
+          @include flex-column;
+          gap: $spacing-xs;
+          flex: 1;
+
+          .item-time {
+            font-size: $font-xs;
+            color: $text-gray;
+          }
+
+          .item-desc {
+            font-size: $font-md;
+            color: $text-primary;
+            font-weight: 500;
+          }
+        }
+
+        .item-right {
+          @include flex-start;
+          align-items: center;
+          gap: $spacing-sm;
+
+          .item-amount {
+            font-size: $font-lg;
+            font-weight: 700;
+            color: $text-primary;
+
+            &.positive {
+              color: $gold;
+            }
+
+            &.negative {
+              color: $red;
+            }
+          }
+
+          .expand-icon {
+            font-size: $font-xs;
+            color: $text-gray;
+          }
+        }
+      }
+
+      .item-detail {
+        margin-top: $spacing-md;
+        padding-top: $spacing-md;
+        border-top: 1rpx solid $border-light;
+
+        .detail-row {
+          @include flex-between;
+          align-items: center;
+          padding: $spacing-xs 0;
+
+          .detail-label {
+            font-size: $font-sm;
+            color: $text-gray;
+          }
+
+          .detail-value {
+            font-size: $font-sm;
+            color: $text-primary;
+            font-weight: 500;
+
+            &.positive {
+              color: $gold;
+            }
+
+            &.negative {
+              color: $red;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .empty-state {
+    @include flex-column;
+    @include flex-center;
+    padding: $spacing-2xl;
+
+    .empty-icon {
+      font-size: 64rpx;
+      margin-bottom: $spacing-md;
+      opacity: 0.5;
+    }
+
+    .empty-text {
+      font-size: $font-sm;
+      color: $text-gray;
+    }
+  }
+}

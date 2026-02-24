@@ -1,0 +1,63 @@
+<view class="empty-state">
+  <!-- SVG 插画 -->
+  <view class="empty-illustration">
+    <!-- 游戏/牌局空状态 -->
+    <view wx:if="{{type === 'game'}}" class="svg-wrapper">
+      <svg class="svg-icon" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <!-- 麻将牌 -->
+        <rect x="30" y="35" width="25" height="35" rx="3" fill="var(--bg-card)" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="47" y="40" width="25" height="35" rx="3" fill="var(--bg-card)" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="64" y="35" width="25" height="35" rx="3" fill="var(--bg-card)" stroke="var(--primary)" stroke-width="2"/>
+        <!-- 装饰圆点 -->
+        <circle cx="42" cy="52" r="3" fill="var(--primary)" opacity="0.6"/>
+        <circle cx="59" cy="57" r="3" fill="var(--primary)" opacity="0.6"/>
+        <circle cx="76" cy="52" r="3" fill="var(--primary)" opacity="0.6"/>
+      </svg>
+    </view>
+
+    <!-- 好友空状态 -->
+    <view wx:elif="{{type === 'friends'}}" class="svg-wrapper">
+      <svg class="svg-icon" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <!-- 三个人物剪影 -->
+        <circle cx="40" cy="45" r="12" fill="var(--primary-pale)"/>
+        <path d="M 25 75 Q 25 60 40 60 Q 55 60 55 75" fill="var(--primary-pale)"/>
+
+        <circle cx="60" cy="40" r="14" fill="var(--primary)" opacity="0.8"/>
+        <path d="M 42 75 Q 42 55 60 55 Q 78 55 78 75" fill="var(--primary)" opacity="0.8"/>
+
+        <circle cx="80" cy="45" r="12" fill="var(--primary-pale)"/>
+        <path d="M 65 75 Q 65 60 80 60 Q 95 60 95 75" fill="var(--primary-pale)"/>
+      </svg>
+    </view>
+
+    <!-- 统计空状态 -->
+    <view wx:elif="{{type === 'stats'}}" class="svg-wrapper">
+      <svg class="svg-icon" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <!-- 柱状图 -->
+        <rect x="25" y="60" width="15" height="25" rx="2" fill="var(--primary-pale)"/>
+        <rect x="45" y="45" width="15" height="40" rx="2" fill="var(--primary)" opacity="0.6"/>
+        <rect x="65" y="35" width="15" height="50" rx="2" fill="var(--primary)"/>
+        <rect x="85" y="50" width="15" height="35" rx="2" fill="var(--primary-pale)"/>
+        <!-- 基线 -->
+        <line x1="20" y1="85" x2="105" y2="85" stroke="var(--border-color)" stroke-width="2"/>
+      </svg>
+    </view>
+
+    <!-- 默认/通用空状态 -->
+    <view wx:else class="svg-wrapper">
+      <svg class="svg-icon" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <!-- 文件夹图标 -->
+        <path d="M 30 40 L 50 40 L 55 35 L 90 35 L 90 85 L 30 85 Z" fill="var(--primary-pale)" stroke="var(--primary)" stroke-width="2"/>
+        <rect x="30" y="45" width="60" height="40" rx="2" fill="var(--bg-card)" stroke="var(--primary)" stroke-width="2"/>
+        <!-- 空状态线条 -->
+        <line x1="45" y1="60" x2="75" y2="60" stroke="var(--border-color)" stroke-width="2" stroke-linecap="round"/>
+        <line x1="45" y1="70" x2="65" y2="70" stroke="var(--border-color)" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </view>
+  </view>
+
+  <text class="empty-message">{{message}}</text>
+  <button wx:if="{{buttonText}}" class="empty-button" bindtap="onButtonTap">
+    {{buttonText}}
+  </button>
+</view>

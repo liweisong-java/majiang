@@ -1,0 +1,18 @@
+<view class="player-item">
+  <view class="player-rank" wx:if="{{rank > 0}}">
+    <text class="rank-text">{{rankIcon}}</text>
+  </view>
+
+  <image class="player-avatar" src="{{player.avatarUrl || '/assets/default-avatar.png'}}" mode="aspectFill"></image>
+
+  <view class="player-info">
+    <text class="player-name">{{player.nickname}}</text>
+    <text class="player-role" wx:if="{{player.role === 'creator'}}">房主</text>
+  </view>
+
+  <view class="player-balance" wx:if="{{showBalance}}">
+    <text class="balance-value {{player.currentBalance >= 0 ? 'positive' : 'negative'}}">
+      {{player.currentBalance >= 0 ? '+' : ''}}{{player.currentBalance}}
+    </text>
+  </view>
+</view>

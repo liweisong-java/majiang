@@ -1,0 +1,87 @@
+@import '../../styles/theme.scss';
+@import '../../styles/mixins.scss';
+
+.container {
+  min-height: 100vh;
+  background: $bg-primary;
+}
+
+.content {
+  min-height: 100%;
+  padding-bottom: $spacing-2xl;
+}
+
+.friends-list {
+  min-height: 100%;
+  padding: $spacing-lg;
+
+  .list-content {
+    .friend-item {
+      @include card;
+      @include flex-between;
+      margin-bottom: $spacing-md;
+      padding: $spacing-lg;
+      transition: all $transition-normal;
+      animation: fadeInUp 0.35s $transition-normal both;
+      @include stagger-children(20, 0.03s);
+
+      &:active {
+        transform: scale(0.98);
+        box-shadow: $shadow-card-hover;
+      }
+
+      .friend-avatar {
+        width: 96rpx;
+        height: 96rpx;
+        border-radius: 50%;
+        margin-right: $spacing-lg;
+        flex-shrink: 0;
+        border: 2rpx solid $border-light;
+        box-shadow: $shadow-sm;
+      }
+
+      .friend-info {
+        @include flex-column;
+        flex: 1;
+        min-width: 0;
+
+        .friend-name {
+          font-size: $font-lg;
+          font-weight: 700;
+          color: $text-primary;
+          margin-bottom: $spacing-xs;
+        }
+
+        .friend-stats {
+          @include flex-start;
+          font-size: $font-sm;
+          color: $text-secondary;
+
+          .stat-item {
+            font-weight: 500;
+          }
+
+          .stat-dot {
+            margin: 0 $spacing-xs;
+            color: $text-gray;
+          }
+        }
+      }
+
+      .friend-balance {
+        .balance-value {
+          font-size: $font-xl;
+          font-weight: 700;
+
+          &.positive {
+            color: $gold;
+          }
+
+          &.negative {
+            color: $red;
+          }
+        }
+      }
+    }
+  }
+}

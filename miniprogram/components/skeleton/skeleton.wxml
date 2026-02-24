@@ -1,0 +1,62 @@
+<view class="skeleton {{type}}">
+  <!-- 用户卡片骨架 -->
+  <block wx:if="{{type === 'user-card'}}">
+    <view class="skeleton-user-card">
+      <view class="skeleton-header">
+        <view class="skeleton-avatar skeleton-shimmer"></view>
+        <view class="skeleton-info">
+          <view class="skeleton-line skeleton-shimmer" style="width: 160rpx; height: 36rpx; margin-bottom: 12rpx;"></view>
+          <view class="skeleton-line skeleton-shimmer" style="width: 120rpx; height: 28rpx;"></view>
+        </view>
+      </view>
+      <view class="skeleton-stats">
+        <view class="skeleton-stat" wx:for="{{[1,2,3]}}" wx:key="*this">
+          <view class="skeleton-line skeleton-shimmer" style="width: 80rpx; height: 32rpx; margin-bottom: 8rpx;"></view>
+          <view class="skeleton-line skeleton-shimmer" style="width: 60rpx; height: 24rpx;"></view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 房间卡片骨架 -->
+  <block wx:if="{{type === 'room-card'}}">
+    <view class="skeleton-room-card">
+      <view class="skeleton-line skeleton-shimmer" style="width: 200rpx; height: 36rpx; margin-bottom: 16rpx;"></view>
+      <view class="skeleton-line skeleton-shimmer" style="width: 300rpx; height: 28rpx;"></view>
+    </view>
+  </block>
+
+  <!-- 好友列表项骨架 -->
+  <block wx:if="{{type === 'friend-item'}}">
+    <view class="skeleton-friend-item">
+      <view class="skeleton-avatar skeleton-shimmer"></view>
+      <view class="skeleton-info">
+        <view class="skeleton-line skeleton-shimmer" style="width: 160rpx; height: 32rpx; margin-bottom: 12rpx;"></view>
+        <view class="skeleton-line skeleton-shimmer" style="width: 240rpx; height: 28rpx;"></view>
+      </view>
+      <view class="skeleton-line skeleton-shimmer" style="width: 100rpx; height: 36rpx;"></view>
+    </view>
+  </block>
+
+  <!-- 统计卡片骨架 -->
+  <block wx:if="{{type === 'stats-card'}}">
+    <view class="skeleton-stats-card">
+      <view class="skeleton-line skeleton-shimmer" style="width: 120rpx; height: 36rpx; margin-bottom: 24rpx;"></view>
+      <view class="skeleton-grid">
+        <view class="skeleton-stat-item" wx:for="{{[1,2,3,4]}}" wx:key="*this">
+          <view class="skeleton-line skeleton-shimmer" style="width: 80rpx; height: 48rpx; margin-bottom: 12rpx;"></view>
+          <view class="skeleton-line skeleton-shimmer" style="width: 100rpx; height: 28rpx;"></view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 通用列表骨架 -->
+  <block wx:if="{{type === 'list'}}">
+    <view class="skeleton-list">
+      <view class="skeleton-list-item" wx:for="{{count || 3}}" wx:key="*this">
+        <view class="skeleton-line skeleton-shimmer" style="width: 100%; height: 120rpx;"></view>
+      </view>
+    </view>
+  </block>
+</view>

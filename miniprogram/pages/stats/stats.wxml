@@ -1,0 +1,93 @@
+<view class="container">
+  <navigation-bar title="统计" back="{{false}}"></navigation-bar>
+
+  <scroll-view
+    class="content"
+    scroll-y
+    style="padding-top: {{navBarHeight}}px;"
+    enable-back-to-top
+    refresher-enabled
+    refresher-triggered="{{loading}}"
+    bindrefresherrefresh="onPullDownRefresh"
+  >
+    <block wx:if="{{loading}}">
+      <view class="skeleton-banner"></view>
+      <view class="skeleton-card"></view>
+    </block>
+
+    <view wx:if="{{!loading && overallStats}}">
+
+      <!-- 有数据时显示统计 -->
+      <block wx:if="{{overallStats.totalGames > 0}}">
+
+        <!-- ① 顶部 Banner -->
+        <view class="banner">
+          <view class="banner-bg-circle c1"></view>
+          <view class="banner-bg-circle c2"></view>
+          <view class="banner-bg-circle c3"></view>
+
+          <view class="banner-main">
+            <text class="banner-eyebrow">累计积分</text>
+            <text class="banner-score {{overallStats.totalScoreChange > 0 ? 'pos' : overallStats.totalScoreChange < 0 ? 'neg' : ''}}">
+              {{overallStats.totalScoreChange > 0 ? '+' : ''}}{{overallStats.totalScoreChange}}
+            </text>
+            <text class="banner-sub">共 {{overallStats.totalGames}} 场对局 · 场均 {{overallStats.averageScore > 0 ? '+' : ''}}{{averageScoreText}}</text>
+          </view>
+
+          <!-- 胜率弧形：--pct 直接设在 arc-track 上 -->
+          <view class="arc-wrap">
+            <view
+              class="arc-track"
+              style="--pct:{{overallStats.totalGames > 0 ? overallStats.totalWins / overallStats.totalGames : 0}}"
+            ></view>
+            <view class="arc-center">
+              <text class="arc-value">{{winRateText}}%</text>
+              <text class="arc-label">胜率</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- ② 胜负平三格 -->
+        <view class="record-row">
+          <view class="record-cell win">
+            <view class="record-dot win-dot"></view>
+            <text class="record-num">{{overallStats.totalWins}}</text>
+            <text class="record-tag">胜</text>
+          </view>
+          <view class="record-cell draw">
+            <view class="record-dot draw-dot"></view>
+            <text class="record-num">{{overallStats.totalGames - overallStats.totalWins - overallStats.totalLosses}}</text>
+            <text class="record-tag">平</text>
+          </view>
+          <view class="record-cell loss">
+            <view class="record-dot loss-dot"></view>
+            <text class="record-num">{{overallStats.totalLosses}}</text>
+            <text class="record-tag">负</text>
+          </view>
+        </view>
+
+        <!-- ③ 胜负进度条 -->
+        <view class="bar-card">
+          <view class="bar-labels">
+            <text class="bar-label-win">胜 {{overallStats.totalWins}}</text>
+            <text class="bar-label-loss">负 {{overallStats.totalLosses}}</text>
+          </view>
+          <view class="bar-track">
+            <view class="bar-win"  style="flex: {{overallStats.totalWins > 0 ? overallStats.totalWins : 0.01}}"></view>
+            <view class="bar-draw" style="flex: {{overallStats.totalGames - overallStats.totalWins - overallStats.totalLosses > 0 ? overallStats.totalGames - overallStats.totalWins - overallStats.totalLosses : 0.01}}"></view>
+            <view class="bar-loss" style="flex: {{overallStats.totalLosses > 0 ? overallStats.totalLosses : 0.01}}"></view>
+          </view>
+        </view>
+
+      </block>
+
+      <!-- 空状态 -->
+      <view wx:else class="empty-wrap">
+        <text class="empty-icon">🀄</text>
+        <text class="empty-title">还没有对局记录</text>
+        <text class="empty-desc">完成一局后数据将显示在这里</text>
+      </view>
+
+    </view>
+  </scroll-view>
+</view>

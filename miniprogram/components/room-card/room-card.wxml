@@ -1,0 +1,12 @@
+<view class="room-card" bindtap="onTap">
+  <view class="room-header">
+    <text class="room-name">{{room.roomName}}</text>
+    <text class="room-status {{statusClass}}">{{statusMap[room.status]}}</text>
+  </view>
+  <view class="room-meta">
+    <text class="meta-text">{{room.members.length}}人</text>
+    <text class="my-balance" wx:if="{{myBalance !== undefined && myBalance !== null}}">
+      我的积分 {{myBalance >= 0 ? '+' : ''}}{{myBalance}}
+    </text>
+  </view>
+</view>

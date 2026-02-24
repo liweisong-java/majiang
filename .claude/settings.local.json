@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-Content:*)",
+      "Bash(findstr:*)",
+      "Bash(Get-ChildItem:*)",
+      "Bash(Select-String:*)"
+    ]
+  }
+}

@@ -1,0 +1,126 @@
+<!--
+此文件为开发者工具生成，生成时间: 2026/2/14下午1:07:43
+使用方法：
+在 D:\project\majiang\miniprogram\pages\index\index.wxml 引入模板
+
+```
+<import src="index.skeleton.wxml"/>
+<template is="skeleton" wx:if="{{loading}}" />
+```
+
+在 D:\project\majiang\miniprogram\pages\index\index.wxss 中引入样式
+```
+@import "./index.skeleton.wxss";
+```
+
+更多详细信息可以参考文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/skeleton.html
+-->
+<template name="skeleton">
+  <view class="sk-container">
+    <view class="container">
+      <view is="components/navigation-bar/navigation-bar">
+        <view class="weui-navigation-bar bar--weui-navigation-bar nav-bar bar--nav-bar sk-image">
+          <view class="weui-navigation-bar__inner bar--weui-navigation-bar__inner ios bar--ios sk-pseudo sk-pseudo-circle sk-image" style="color: ; background: ; ; padding-right: 94px; height: calc(var(--height) + 54px); padding-top: 54px;">
+            <view class="weui-navigation-bar__left bar--weui-navigation-bar__left" style="width: 94px;">
+              <view class="weui-navigation-bar__buttons bar--weui-navigation-bar__buttons weui-navigation-bar__buttons_goback bar--weui-navigation-bar__buttons_goback">
+                <view class="weui-navigation-bar__btn_goback_wrapper bar--weui-navigation-bar__btn_goback_wrapper sk-button" hover-class="weui-active" hover-stay-time="100">
+                  <view class="weui-navigation-bar__button bar--weui-navigation-bar__button weui-navigation-bar__btn_goback bar--weui-navigation-bar__btn_goback"></view>
+                </view>
+              </view>
+            </view>
+            <view class="weui-navigation-bar__center bar--weui-navigation-bar__center">
+              <text class="sk-transparent sk-text-18-7500-351 sk-text" style="background-position-x: 50%;">打牌记账</text>
+            </view>
+            <view class="weui-navigation-bar__right bar--weui-navigation-bar__right">
+              <view class="theme-toggle">
+                <text class="theme-icon sk-transparent sk-text-0-0000-824 sk-text">☀️</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <scroll-view scroll-y="true" class="content" style="padding-top: 94px;">
+        <view is="components/user-card/user-card" class="user-card-wrapper">
+          <view class="user-card--user-card user-card--user-card--light sk-pseudo sk-pseudo-circle">
+            <view class="user-card--user-header">
+              <button class="user-card--avatar-button sk-button sk-pseudo sk-pseudo-circle" open-type="chooseAvatar">
+                <view class="user-card--avatar-wrapper sk-pseudo sk-pseudo-circle">
+                  <image class="user-card--user-avatar sk-image" mode="aspectFit"></image>
+                  <view class="user-card--avatar-mask sk-image">
+                    <text class="user-card--avatar-edit-icon sk-transparent sk-text-0-0000-207 sk-text" style="background-position-x: 50%;">✏️</text>
+                  </view>
+                </view>
+              </button>
+              <view class="user-card--user-info">
+                <view class="user-card--nickname-container">
+                  <view class="user-card--nickname-display">
+                    <text class="user-card--nickname-text sk-transparent sk-text-18-7500-371 sk-text">聪明的达人7395</text>
+                    <text class="user-card--edit-hint sk-transparent sk-text-18-7500-836 sk-text">✏️</text>
+                  </view>
+                </view>
+              </view>
+            </view>
+            <view class="user-card--user-stats">
+              <view class="user-card--stat-item">
+                <text class="user-card--stat-label sk-transparent sk-text-18-7500-286 sk-text" style="background-position-x: 50%;">总场次</text>
+                <text class="user-card--stat-value sk-transparent sk-opacity">0</text>
+              </view>
+              <view class="user-card--stat-divider"></view>
+              <view class="user-card--stat-item">
+                <text class="user-card--stat-label sk-transparent sk-text-18-7500-666 sk-text" style="background-position-x: 50%;">胜率</text>
+                <text class="user-card--stat-value sk-transparent sk-opacity">-</text>
+              </view>
+              <view class="user-card--stat-divider"></view>
+              <view class="user-card--stat-item">
+                <text class="user-card--stat-label sk-transparent sk-text-18-7500-232 sk-text" style="background-position-x: 50%;">总输赢</text>
+                <text class="user-card--stat-value user-card--positive sk-transparent sk-text-8-3333-747 sk-text" style="background-position-x: 50%;">
+        +0      </text>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="action-grid">
+          <view class="action-card">
+            <view class="action-icon-wrap">
+              <text class="action-icon-text sk-transparent sk-text-0-0000-425 sk-text">🀄</text>
+            </view>
+            <text class="action-label sk-transparent sk-text-18-7500-970 sk-text">开一局</text>
+          </view>
+          <view class="action-card">
+            <view class="action-icon-wrap">
+              <text class="action-icon-text sk-transparent sk-text-0-0000-49 sk-text">🤝</text>
+            </view>
+            <text class="action-label sk-transparent sk-text-18-7500-135 sk-text">加入</text>
+          </view>
+          <view class="action-card">
+            <view class="action-icon-wrap">
+              <text class="action-icon-text sk-transparent sk-text-0-0000-796 sk-text">📋</text>
+            </view>
+            <text class="action-label sk-transparent sk-text-18-7500-805 sk-text">历史牌局</text>
+          </view>
+        </view>
+        <view class="section">
+          <view class="section-header sk-pseudo sk-pseudo-circle">
+            <text class="section-title sk-transparent sk-text-18-7500-604 sk-text">进行中的牌局</text>
+            <text class="section-more sk-transparent sk-text-18-7500-820 sk-text">查看全部</text>
+          </view>
+          <view class="room-list">
+            <view is="components/room-card/room-card">
+              <view class="card--room-card sk-pseudo sk-pseudo-circle">
+                <view class="card--room-header">
+                  <text class="card--room-name sk-transparent sk-text-18-7500-675 sk-text">牌局 2月14日</text>
+                  <text class="card--room-status sk-transparent sk-text-18-7500-510 sk-text">进行中</text>
+                </view>
+                <view class="card--room-meta">
+                  <text class="card--meta-text sk-transparent sk-text-14-2857-803 sk-text">1人</text>
+                  <text class="card--my-balance sk-transparent sk-text-14-2857-625 sk-text">
+      我的积分 +0    </text>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</template>

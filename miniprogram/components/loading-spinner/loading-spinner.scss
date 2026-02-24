@@ -1,0 +1,29 @@
+@import '../../styles/theme.scss';
+@import '../../styles/mixins.scss';
+
+.loading-spinner {
+  @include flex-column;
+  @include flex-center;
+  padding: $spacing-xl;
+
+  .spinner {
+    width: 72rpx;
+    height: 72rpx;
+    border: 4rpx solid $border-light;
+    border-top-color: $primary;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+
+  .loading-message {
+    margin-top: $spacing-md;
+    font-size: $font-sm;
+    color: $text-gray;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

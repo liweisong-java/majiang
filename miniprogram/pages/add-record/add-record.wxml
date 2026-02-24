@@ -1,0 +1,98 @@
+<view class="container">
+  <!-- 自定义导航栏 -->
+  <navigation-bar title="添加记录" bind:back="onBack"></navigation-bar>
+
+  <scroll-view class="content" scroll-y style="padding-top: {{navBarHeight}}px;">
+    <!-- 加载状态 -->
+    <loading-spinner wx:if="{{loading}}" loading="{{loading}}"></loading-spinner>
+
+    <view wx:if="{{!loading && room}}" class="record-form">
+      <!-- 局数提示 -->
+      <view class="round-info">
+        <text class="round-label">第 {{room.totalRounds + 1}} 局</text>
+      </view>
+
+      <!-- 分数输入列表 -->
+      <view class="score-inputs">
+        <view
+          class="score-input-item"
+          wx:for="{{scores}}"
+          wx:key="openid"
+          data-index="{{index}}"
+        >
+          <view class="player-info">
+            <text class="player-nickname">{{item.nickname}}</text>
+            <button
+              class="quick-set-btn"
+              size="mini"
+              bindtap="onQuickSetWinner"
+              data-index="{{index}}"
+            >
+              胡牌
+            </button>
+          </view>
+
+          <view class="input-row">
+            <view class="score-input-wrapper">
+              <text class="input-label">得分</text>
+              <input
+                class="score-input"
+                type="digit"
+                placeholder="0"
+                value="{{item.scoreChange || ''}}"
+                bindinput="onScoreInput"
+                data-index="{{index}}"
+              />
+            </view>
+
+            <view class="note-input-wrapper">
+              <text class="input-label">备注</text>
+              <input
+                class="note-input"
+                placeholder="选填"
+                value="{{item.note}}"
+                bindinput="onNoteInput"
+                data-index="{{index}}"
+                maxlength="10"
+              />
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 总和显示 -->
+      <view class="balance-display">
+        <text class="balance-label">总和</text>
+        <text class="balance-value {{isBalanced ? 'balanced' : 'unbalanced'}}">
+          {{sumText}}
+        </text>
+        <text class="balance-status {{isBalanced ? 'balanced' : 'unbalanced'}}">
+          {{isBalanced ? '✓ 已平衡' : '⚠ 不平衡'}}
+        </text>
+      </view>
+
+      <!-- 操作按钮 -->
+      <view class="actions">
+        <button class="action-btn reset" bindtap="onReset">
+          重置
+        </button>
+        <button
+          class="action-btn submit"
+          bindtap="onSubmit"
+          loading="{{submitting}}"
+          disabled="{{submitting}}"
+        >
+          {{submitting ? '提交中...' : '确认提交'}}
+        </button>
+      </view>
+
+      <!-- 提示 -->
+      <view class="tips">
+        <text class="tips-title">💡 温馨提示</text>
+        <text class="tips-item">• 正数表示赢分，负数表示输分</text>
+        <text class="tips-item">• 所有分数总和应该为0</text>
+        <text class="tips-item">• 可以点击"胡牌"按钮快速设置</text>
+      </view>
+    </view>
+  </scroll-view>
+</view>

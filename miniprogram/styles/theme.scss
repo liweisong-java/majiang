@@ -1,0 +1,187 @@
+// ========== CSS 变量主题系统 · 支持深色模式 ==========
+
+// Light mode (默认)
+page {
+  // 主色 — 靛蓝紫
+  --primary: #4F46E5;
+  --primary-dark: #3730A3;
+  --primary-light: #818CF8;
+  --primary-teal: #6366F1;
+  --primary-pale: #EEF2FF;
+  --primary-pale-light: #F5F3FF;
+  --primary-glow: rgba(79, 70, 229, 0.25);
+
+  // 强调色
+  --gold: #D97706;
+  --gold-light: #FBBF24;
+  --red: #EF4444;
+  --red-light: #FCA5A5;
+  --gray: #6B7280;
+
+  // 装饰色
+  --accent-purple: #7C3AED;
+  --accent-blue: #2563EB;
+  --accent-cyan: #0891B2;
+
+  // 背景
+  --bg-primary: #F8F8FF;
+  --bg-gradient-start: #F5F5FF;
+  --bg-gradient-end: #EDEDFF;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #F9F9FF;
+
+  // 文字
+  --text-primary: #1A1D21;
+  --text-secondary: #52575E;
+  --text-gray: #9CA3AF;
+  --text-on-primary: #FFFFFF;
+
+  // 边框
+  --border-color: #E5E7EB;
+  --border-light: #F0F1F3;
+
+  // 阴影
+  --shadow-color: rgba(0, 0, 0, 0.05);
+  --shadow-color-md: rgba(0, 0, 0, 0.06);
+  --shadow-color-lg: rgba(0, 0, 0, 0.08);
+}
+
+// Dark mode
+page[data-theme="dark"] {
+  // 主色（深色模式提亮）
+  --primary: #818CF8;
+  --primary-dark: #6366F1;
+  --primary-light: #A5B4FC;
+  --primary-teal: #6366F1;
+  --primary-pale: #1E1B4B;
+  --primary-pale-light: #1A1740;
+  --primary-glow: rgba(129, 140, 248, 0.3);
+
+  // 强调色
+  --gold: #F59E0B;
+  --gold-light: #FBBF24;
+  --red: #EF4444;
+  --red-light: #FCA5A5;
+  --gray: #9CA3AF;
+
+  // 背景（深色）
+  --bg-primary: #0F0F1A;
+  --bg-gradient-start: #0F0F1A;
+  --bg-gradient-end: #1A1A2E;
+  --bg-card: #1A1A2E;
+  --bg-card-hover: #22223A;
+
+  // 文字（反转）
+  --text-primary: #E6EDF3;
+  --text-secondary: #9198A1;
+  --text-gray: #707A86;
+  --text-on-primary: #FFFFFF;
+
+  // 边框
+  --border-color: #2D2D4A;
+  --border-light: #252540;
+
+  // 阴影
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --shadow-color-md: rgba(0, 0, 0, 0.4);
+  --shadow-color-lg: rgba(0, 0, 0, 0.5);
+}
+
+// ========== 原有变量保持兼容（使用 CSS 变量） ==========
+$primary: var(--primary);
+$primary-dark: var(--primary-dark);
+$primary-light: var(--primary-light);
+$primary-teal: var(--primary-teal);
+$primary-pale: var(--primary-pale);
+$primary-pale-light: var(--primary-pale-light);
+$primary-glow: var(--primary-glow);
+
+$primary-green: $primary;
+$primary-green-dark: $primary-dark;
+$primary-green-light: $primary-light;
+$primary-green-pale: $primary-pale;
+
+$gold: var(--gold);
+$gold-light: var(--gold-light);
+$red: var(--red);
+$red-light: var(--red-light);
+$gray: var(--gray);
+
+$accent-purple: var(--accent-purple);
+$accent-purple-light: #C4B5FD;
+$accent-blue: var(--accent-blue);
+$accent-blue-light: #93C5FD;
+$accent-indigo: #4F46E5;
+$accent-cyan: var(--accent-cyan);
+
+$bg-primary: var(--bg-primary);
+$bg-gradient-start: var(--bg-gradient-start);
+$bg-gradient-end: var(--bg-gradient-end);
+$bg-card: var(--bg-card);
+$bg-card-hover: var(--bg-card-hover);
+
+// 毛玻璃（深色模式下调整）
+$glass-bg: rgba(255, 255, 255, 0.72);
+$glass-bg-heavy: rgba(255, 255, 255, 0.85);
+$glass-bg-light: rgba(255, 255, 255, 0.5);
+$glass-bg-dark: rgba(255, 255, 255, 0.3);
+$glass-border: rgba(255, 255, 255, 0.5);
+$glass-border-light: rgba(255, 255, 255, 0.3);
+$glass-blur: 20rpx;
+$glass-blur-heavy: 40rpx;
+
+// 渐变
+$gradient-shine: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.4) 50%, transparent 60%);
+$gradient-card: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.7) 100%);
+$gradient-gold: linear-gradient(135deg, #D97706, #FBBF24, #D97706);
+$gradient-primary: linear-gradient(135deg, $primary-teal 0%, $primary 50%, $primary-dark 100%);
+
+$text-primary: var(--text-primary);
+$text-secondary: var(--text-secondary);
+$text-gray: var(--text-gray);
+$text-on-primary: var(--text-on-primary);
+
+$border-color: var(--border-color);
+$border-light: var(--border-light);
+
+// 间距（不变）
+$spacing-xs: 8rpx;
+$spacing-sm: 16rpx;
+$spacing-md: 24rpx;
+$spacing-lg: 32rpx;
+$spacing-xl: 48rpx;
+$spacing-2xl: 64rpx;
+
+// 圆角（不变）
+$radius-sm: 12rpx;
+$radius-md: 16rpx;
+$radius-lg: 24rpx;
+$radius-xl: 32rpx;
+$radius-2xl: 40rpx;
+$radius-full: 999rpx;
+
+// 字号（不变）
+$font-xs: 24rpx;
+$font-sm: 28rpx;
+$font-md: 32rpx;
+$font-lg: 36rpx;
+$font-xl: 42rpx;
+$font-2xl: 48rpx;
+$font-3xl: 56rpx;
+
+// 阴影（使用 CSS 变量）
+$shadow-sm: 0 1rpx 4rpx var(--shadow-color), 0 1rpx 2rpx var(--shadow-color);
+$shadow-md: 0 4rpx 16rpx var(--shadow-color-md), 0 1rpx 4rpx var(--shadow-color);
+$shadow-lg: 0 12rpx 40rpx var(--shadow-color-lg), 0 4rpx 12rpx var(--shadow-color-md);
+$shadow-glow: 0 0 32rpx $primary-glow;
+$shadow-card: 0 2rpx 12rpx var(--shadow-color), 0 0 1rpx var(--shadow-color);
+$shadow-card-hover: 0 6rpx 24rpx var(--shadow-color-lg), 0 2rpx 6rpx var(--shadow-color);
+$shadow-elevated: 0 8rpx 32rpx var(--shadow-color-lg), 0 2rpx 8rpx var(--shadow-color-md);
+$shadow-float: 0 16rpx 48rpx var(--shadow-color-lg), 0 6rpx 16rpx var(--shadow-color-md);
+$shadow-gold-glow: 0 0 20rpx rgba(217, 119, 6, 0.3);
+
+// 动效时长（不变）
+$transition-fast: 0.15s ease;
+$transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+$transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+$transition-bounce: 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
